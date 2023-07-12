@@ -1,4 +1,5 @@
 import PlaceCard from '../../components/place-card';
+import { Setting } from '../../consts';
 
 type MainScreenProps = {
   rentCount: number;
@@ -115,12 +116,9 @@ function MainPage ({rentCount}: MainScreenProps):JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
+                {Array.from({ length: Setting.rentCount}, (_, index) => (
+                  <PlaceCard key={index}/>
+                ))};
               </div>
             </section>
             <div className="cities__right-section">
