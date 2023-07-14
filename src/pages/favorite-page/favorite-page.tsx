@@ -1,4 +1,3 @@
-
 import Logo from '../../components/logo/logo';
 function FavorivePage ():JSX.Element{
   return (
