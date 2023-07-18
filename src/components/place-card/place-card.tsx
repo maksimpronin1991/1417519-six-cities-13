@@ -1,4 +1,11 @@
-function PlaceCard ():JSX.Element {
+import { Offers } from '../../types/offer';
+
+type PlaceCardScreenProps = {
+  rentingOffers: Offers;
+}
+
+function PlaceCard ({rentingOffers}: PlaceCardScreenProps):JSX.Element {
+  console.log(rentingOffers)
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">

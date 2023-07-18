@@ -1,10 +1,12 @@
 import PlaceCard from '../../components/place-card/place-card';
 import Logo from '../../components/logo/logo';
+import { Offers } from '../../types/offer';
+
 type MainScreenProps = {
-  rentCount: number;
+  rentingOffers: Offers;
 }
 
-function MainPage ({rentCount}: MainScreenProps):JSX.Element {
+function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -77,7 +79,7 @@ function MainPage ({rentCount}: MainScreenProps):JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{rentCount} places to stay in Amsterdam</b>
+              <b className="places__found">{rentingOffers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -105,8 +107,8 @@ function MainPage ({rentCount}: MainScreenProps):JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: rentCount}, (_, index) => (
-                  <PlaceCard key={index}/>
+                {Array.from({ length: rentingOffers.length}, (_, index) => (
+                  <PlaceCard rentingOffers = {rentingOffers} key={index}/>
                 ))};
               </div>
             </section>

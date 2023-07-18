@@ -7,18 +7,26 @@ import FavorivePage from '../../pages/favorite-page/favorite-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import Error from '../../pages/404-page/404-page';
 import PrivateRoute from '../private-route/private-route';
+import { Offers } from '../../types/offer';
 
 type AppProps = {
-  rentCount: number;
+
+  rentingOffers: Offers;
 }
 
-function App ({rentCount}: AppProps): JSX.Element{
+function App ({rentingOffers}: AppProps): JSX.Element{
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage rentCount = {rentCount} />}
+          element=
+            {
+              <MainPage
+
+                rentingOffers = {rentingOffers}
+              />
+            }
         />
         <Route
           path={AppRoute.Login}
