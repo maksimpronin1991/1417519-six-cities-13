@@ -1,7 +1,3 @@
-export const Setting = {
-  rentCount: 6
-};
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',

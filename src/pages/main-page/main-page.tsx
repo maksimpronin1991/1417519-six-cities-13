@@ -1,4 +1,4 @@
-import PlaceCard from '../../components/place-card/place-card';
+import PlacesList from '../../components/places-list/places-list';
 import Logo from '../../components/logo/logo';
 import { Offers } from '../../types/offer';
 
@@ -43,7 +43,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item tabs__item--active">
                   <span>Paris</span>
                 </a>
               </li>
@@ -58,7 +58,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <a className="locations__item-link tabs__item " href="#">
                   <span>Amsterdam</span>
                 </a>
               </li>
@@ -106,11 +106,9 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: rentingOffers.length}, (_, index) => (
-                  <PlaceCard rentingOffers = {rentingOffers} key={index}/>
-                ))};
-              </div>
+
+              <PlacesList rentingOffers = {rentingOffers}/>
+
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />
