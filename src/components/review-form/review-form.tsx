@@ -15,15 +15,16 @@ function ReviewForm (){
     },
   });
 
+
   const handleFieldChange: FormEventHandler<HTMLTextAreaElement> = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData,[name]:value});
 
   };
 
-  const handleFieldChange2: FormEventHandler<HTMLDivElement> = (evt: ChangeEvent<HTMLDivElement>) => {
-    const {name, value} = evt.target.dataset;
-    setFormData({...formData,[name || '']:value});
+  const handleFieldChange2: FormEventHandler<HTMLInputElement> = (evt: ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = evt.target;
+    setFormData({...formData,[name]:value});
 
   };
 
@@ -131,7 +132,6 @@ function ReviewForm (){
         name="comment"
         value={formData.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
         minLength={50}
       />
       <div className="reviews__button-wrapper">
