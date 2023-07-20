@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 function ReviewForm (){
 
@@ -16,13 +16,13 @@ function ReviewForm (){
   });
 
 
-  const handleFieldChange: FormEventHandler<HTMLTextAreaElement> = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData,[name]:value});
 
   };
 
-  const handleFieldChange2: FormEventHandler<HTMLInputElement> = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData,[name]:value});
 
@@ -42,7 +42,7 @@ function ReviewForm (){
     Your review
       </label>
       <div className="reviews__rating-form form__rating"
-        onChange={handleFieldChange2}
+        onChange={handleRatingChange}
       >
         <input
           className="form__rating-input visually-hidden"
@@ -127,7 +127,7 @@ function ReviewForm (){
       </div>
       <textarea
         className="reviews__textarea form__textarea"
-        onChange={handleFieldChange}
+        onChange={handleCommentChange}
         id="comment"
         name="comment"
         value={formData.comment}
