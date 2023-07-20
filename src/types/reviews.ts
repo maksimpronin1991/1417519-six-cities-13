@@ -1,4 +1,4 @@
-type Rewiew = {
+type Review = {
   id: string;
   comment: string;
   date: string;
@@ -12,5 +12,5 @@ type User = {
   isPro: boolean;
 }
 
-type Rewiews = Rewiew[];
-export type {Rewiew,Rewiews};
+type Reviews = Review[];
+export type {Review,Reviews};

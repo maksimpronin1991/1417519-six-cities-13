@@ -1,6 +1,6 @@
-import { Rewiews } from '../types/rewiews';
+import { Reviews } from '../types/reviews';
 
-export const avalibleRewiews: Rewiews = [
+export const avalibleReviews: Reviews = [
   {
     'id': 'b041999e-e959-4452-aea1-06561bcd78e3',
     'comment': 'I stayed here for one night and it was an unpleasant experience.',

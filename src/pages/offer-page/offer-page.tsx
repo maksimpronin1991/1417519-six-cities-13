@@ -5,7 +5,7 @@ import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import { OfferPremiumMark } from '../../components/offer-premium-mark/offer-premium-mark';
 import OfferInside from '../../components/offer-inside/offer-inside';
 import OfferHost from '../../components/offer-host/offer-host';
-import Reviews from '../../components/rewiews/rewiews';
+import Reviews from '../../components/reviews/reviews';
 
 
 type OfferPageScreenProps = {
@@ -52,7 +52,7 @@ function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {actualOffer.isPremium ? <OfferPremiumMark /> : ' '}
+              {actualOffer.isPremium ? <OfferPremiumMark /> : ''}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {actualOffer.title}

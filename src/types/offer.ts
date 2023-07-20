@@ -46,7 +46,7 @@ type FullOffer = {
     rating: number;
     bedrooms: number;
     maxAdults: number;
-    rewiews: string[];
+    reviews: string[];
 }
 
 type FullOffers = FullOffer[]

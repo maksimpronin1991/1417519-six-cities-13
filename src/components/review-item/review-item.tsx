@@ -1,38 +1,38 @@
 import * as dayjs from 'dayjs';
-import { Rewiew } from '../../types/rewiews';
+import { Review } from '../../types/reviews';
 
 type ReviewsItemScreenProps = {
-  actualRewiew: Rewiew;
+  actualReview: Review;
 }
 
 
-function ReviewItem ({actualRewiew}: ReviewsItemScreenProps):JSX.Element{
+function ReviewItem ({actualReview}: ReviewsItemScreenProps):JSX.Element{
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"
-            src={actualRewiew.user.avatarUrl}
+            src={actualReview.user.avatarUrl}
             width={54}
             height={54}
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{actualRewiew.user.name}</span>
+        <span className="reviews__user-name">{actualReview.user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${actualRewiew.rating * 20 }%` }} />
+            <span style={{ width: `${actualReview.rating * 20 }%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
-          {actualRewiew.comment}
+          {actualReview.comment}
         </p>
-        <time className="reviews__time" dateTime={dayjs(actualRewiew.date).format('YYYY-MM-DD')}>
-          {dayjs(actualRewiew.date).format('MMMM YYYY')}
+        <time className="reviews__time" dateTime={dayjs(actualReview.date).format('YYYY-MM-DD')}>
+          {dayjs(actualReview.date).format('MMMM YYYY')}
         </time>
       </div>
     </li>

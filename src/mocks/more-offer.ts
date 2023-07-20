@@ -38,12 +38,12 @@ export const fullOffers:FullOffers = [
       'name': 'Angelina',
       'avatarUrl': 'https://13.design.pages.academy/static/host/avatar-angelina.jpg'
     },
-    'isPremium': true,
+    'isPremium': false,
     'isFavorite': false,
     'rating': 1.8,
     'bedrooms': 1,
     'maxAdults': 2,
-    'rewiews': ['b041999e-e959-4452-aea1-06561bcd78e3','91ccc8f7-688a-4d9b-8998-a2f9713c1a6c']
+    'reviews': ['b041999e-e959-4452-aea1-06561bcd78e3','91ccc8f7-688a-4d9b-8998-a2f9713c1a6c']
   },
   {
     'id': '4157daa8-b21d-4961-a465-94323176ba12',
@@ -94,7 +94,7 @@ export const fullOffers:FullOffers = [
     'rating': 4.2,
     'bedrooms': 3,
     'maxAdults': 3,
-    'rewiews': ['cee8472f-9c2f-4626-821c-1fcd607f7824','aaed51bd-0777-4aa7-966f-583354a24bef']
+    'reviews': ['cee8472f-9c2f-4626-821c-1fcd607f7824','aaed51bd-0777-4aa7-966f-583354a24bef']
   },
   {
     'id': '6852faac-d558-4549-9ab8-229255ee863e',
@@ -138,12 +138,12 @@ export const fullOffers:FullOffers = [
       'name': 'Angelina',
       'avatarUrl': 'https://13.design.pages.academy/static/host/avatar-angelina.jpg'
     },
-    'isPremium': false,
+    'isPremium': true,
     'isFavorite': true,
     'rating': 4.2,
     'bedrooms': 1,
     'maxAdults': 1,
-    'rewiews': ['5f17ddab-42f1-4431-aaa2-6c18cdab6daf','9f8d3606-a033-4f43-acdc-668cd3d37426']
+    'reviews': ['5f17ddab-42f1-4431-aaa2-6c18cdab6daf','9f8d3606-a033-4f43-acdc-668cd3d37426']
 
   },
   {
@@ -194,6 +194,6 @@ export const fullOffers:FullOffers = [
     'rating': 1.5,
     'bedrooms': 5,
     'maxAdults': 4,
-    'rewiews': ['5d7af522-34c1-45c2-87eb-6060681bb2c2']
+    'reviews': ['5d7af522-34c1-45c2-87eb-6060681bb2c2']
   },
 ];
