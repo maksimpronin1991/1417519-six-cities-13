@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
 function ReviewForm (){
 
@@ -15,19 +15,15 @@ function ReviewForm (){
     },
   });
 
-  const handleFieldChange = (evt:ChangeEvent<HTMLTextAreaElement>) => {
-    const {name, value} = evt.target;
-    setFormData({...formData,[name]:value});
-
-  };
-
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
     Your review
       </label>
       <div className="reviews__rating-form form__rating"
-        onChange={handleFieldChange}
+        onChange={(evt) => {
+          setFormData({...formData, rating: evt.target.value});
+        }}
       >
         <input
           className="form__rating-input visually-hidden"
@@ -112,7 +108,11 @@ function ReviewForm (){
       </div>
       <textarea
         className="reviews__textarea form__textarea"
-        onChange={handleFieldChange}
+        onChange={(evt) => {
+          setFormData({
+            ...formData, comment: evt.target.value,
+          });
+        }}
         id="comment"
         name="comment"
         value={formData.comment}
