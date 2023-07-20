@@ -130,6 +130,7 @@ function ReviewForm (){
         <button
           className="reviews__submit form__submit button"
           type="submit"
+          disabled={formData.comment.length < 49}
           onClick={(evt) => {
             evt.preventDefault();
             setFormData({...formData,
