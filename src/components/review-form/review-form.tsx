@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 function ReviewForm (){
 
@@ -15,18 +15,10 @@ function ReviewForm (){
     },
   });
 
-  const handleFieldChange = (evt:object) => {
+  const handleFieldChange = (evt:ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData,[name]:value});
 
-  };
-
-  const handleSubmitClick = (evt:object) => {
-    evt.preventDefault();
-    setFormData({...formData,
-      id: crypto.randomUUID(),
-      date: dayjs().format('YYYY-MM-DDTHH:mm:ssZ[Z]'),
-    });
   };
 
   return (
@@ -138,7 +130,13 @@ function ReviewForm (){
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          onClick={handleSubmitClick}
+          onClick={(evt) => {
+            evt.preventDefault();
+            setFormData({...formData,
+              id: crypto.randomUUID(),
+              date: dayjs().format('YYYY-MM-DDTHH:mm:ssZ[Z]'),
+            });
+          }}
         >
       Submit
         </button>
