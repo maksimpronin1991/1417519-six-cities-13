@@ -48,7 +48,6 @@ function App ({rentingOffers,fullOffers}: AppProps): JSX.Element{
           path={AppRoute.Offer}
           element={
             <OfferPage
-              rentingOffers = {rentingOffers}
               fullOffers = {fullOffers}
             />
           }
