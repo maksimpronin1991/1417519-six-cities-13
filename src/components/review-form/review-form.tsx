@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, FormEventHandler, useState } from 'react';
 
 function ReviewForm (){
 
@@ -15,15 +15,33 @@ function ReviewForm (){
     },
   });
 
+  const handleFieldChange: FormEventHandler<HTMLTextAreaElement> = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const {name, value} = evt.target;
+    setFormData({...formData,[name]:value});
+
+  };
+
+  const handleFieldChange2: FormEventHandler<HTMLDivElement> = (evt: ChangeEvent<HTMLDivElement>) => {
+    const {name, value} = evt.target.dataset;
+    setFormData({...formData,[name || '']:value});
+
+  };
+
+  const handleSubmitClick = (evt: FormEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    setFormData({...formData,
+      id: crypto.randomUUID(),
+      date: dayjs().format('YYYY-MM-DDTHH:mm:ssZ[Z]'),
+    });
+  };
+
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
     Your review
       </label>
       <div className="reviews__rating-form form__rating"
-        onChange={(evt) => {
-          setFormData({...formData, rating: evt.target.value});
-        }}
+        onChange={handleFieldChange2}
       >
         <input
           className="form__rating-input visually-hidden"
@@ -108,11 +126,7 @@ function ReviewForm (){
       </div>
       <textarea
         className="reviews__textarea form__textarea"
-        onChange={(evt) => {
-          setFormData({
-            ...formData, comment: evt.target.value,
-          });
-        }}
+        onChange={handleFieldChange}
         id="comment"
         name="comment"
         value={formData.comment}
@@ -131,13 +145,7 @@ function ReviewForm (){
           className="reviews__submit form__submit button"
           type="submit"
           disabled={formData.comment.length < 49}
-          onClick={(evt) => {
-            evt.preventDefault();
-            setFormData({...formData,
-              id: crypto.randomUUID(),
-              date: dayjs().format('YYYY-MM-DDTHH:mm:ssZ[Z]'),
-            });
-          }}
+          onClick={handleSubmitClick}
         >
       Submit
         </button>
