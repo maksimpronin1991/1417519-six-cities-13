@@ -9,7 +9,6 @@ type PlaceCardScreenProps = {
 
 function PlaceCard ({rentingOffer}: PlaceCardScreenProps):JSX.Element {
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [, setIsShown] = useState(false);
   return (
     <article className="cities__card place-card"
