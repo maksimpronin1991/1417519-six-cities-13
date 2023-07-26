@@ -11,14 +11,13 @@ type PlacesListScreenProps = {
 function PlacesList ({rentingOffers,onListItemHover}: PlacesListScreenProps,):JSX.Element {
   const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
-    console.log(event.currentTarget.innerText)
-    onListItemHover(event.currentTarget.innerText);
+    onListItemHover(event.currentTarget.id);
   };
 
   return (
     <div className="cities__places-list places__list tabs__content">
       {rentingOffers.map((offer:Offer) => (
-        <article className="cities__card place-card" key={offer.id} onMouseEnter={handleListItemHover}>
+        <article className="cities__card place-card" key={offer.id} id={offer.id} onMouseEnter={handleListItemHover}>
           {offer.isFavorite ? <PremiumMark/> : ''}
           <div className="cities__image-wrapper place-card__image-wrapper">
             <a href="#">

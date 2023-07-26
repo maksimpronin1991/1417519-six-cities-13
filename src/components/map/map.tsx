@@ -39,7 +39,7 @@ function Map({city,points,selectedPoint}:MapScreenProps) {
           lng: point.location.longitude,
         });
         marker.setIcon(
-          selectedPoint !== undefined && point.title === selectedPoint.title
+          selectedPoint !== undefined && point.id === selectedPoint.id
             ? currentCustomIcon
             : defaultCustomIcon
         )

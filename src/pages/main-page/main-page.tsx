@@ -17,7 +17,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
   );
 
   const handleListItemHover = (listItemName: string) => {
-    const currentPoint = rentingOffers.find((point) => listItemName.includes(point.title));
+    const currentPoint = rentingOffers.find((point) => point.id === listItemName);
     setSelectedPoint(currentPoint);
   };
 
