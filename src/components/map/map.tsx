@@ -4,20 +4,19 @@ import leaflet from 'leaflet';
 import {layerGroup, Marker} from 'leaflet';
 import useMap from '../custom-hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
-import { City, Offers } from '../../types/offer';
+import { City, Offer, Offers } from '../../types/offer';
 
 type MapScreenProps = {
   city: City;
   points: Offers;
+  selectedPoint: Offer | undefined;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
@@ -25,7 +24,7 @@ const currentCustomIcon = leaflet.icon({
 });
 
 
-function Map({city,points}:MapScreenProps) {
+function Map({city,points,selectedPoint}:MapScreenProps) {
 
   const mapRef = useRef(null);
   const map = useMap({mapRef, city});
@@ -39,14 +38,18 @@ function Map({city,points}:MapScreenProps) {
           lat: point.location.latitude,
           lng: point.location.longitude,
         });
-        marker.addTo(markerLayer);
-
+        marker.setIcon(
+          selectedPoint !== undefined && point.title === selectedPoint.title
+            ? currentCustomIcon
+            : defaultCustomIcon
+        )
+          .addTo(markerLayer);
       });
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  },[map,points]);
+  },[map,points,selectedPoint]);
 
   return (
     <section

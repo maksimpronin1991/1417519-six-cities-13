@@ -1,6 +1,6 @@
 import PlacesList from '../../components/places-list/places-list';
 import Logo from '../../components/logo/logo';
-import { Offers } from '../../types/offer';
+import { Offer, Offers } from '../../types/offer';
 import Map from '../../components/map/map';
 import { CITY } from '../../mocks/city';
 import { useState } from 'react';
@@ -12,13 +12,12 @@ type MainScreenProps = {
 
 function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
 
-  const [selectedPoint, setSelectedPoint] = useState({});
+  const [selectedPoint, setSelectedPoint] = useState<Offer | undefined>(
+    undefined
+  );
 
-  const handleListItemHover = (id: string) => {
-    const currentPoint = rentingOffers.find((point) =>
-      point.id === id,
-    );
-
+  const handleListItemHover = (listItemName: string) => {
+    const currentPoint = rentingOffers.find((point) => listItemName.includes(point.title));
     setSelectedPoint(currentPoint);
   };
 
@@ -124,7 +123,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
               <PlacesList rentingOffers = {rentingOffers} onListItemHover={handleListItemHover}/>
             </section>
             <div className="cities__right-section">
-              <Map city={CITY} points={rentingOffers}/>
+              <Map city={CITY} points={rentingOffers} selectedPoint={selectedPoint}/>
             </div>
           </div>
         </div>

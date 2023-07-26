@@ -1,17 +1,18 @@
 import { Offer, Offers } from '../../types/offer';
 import { PremiumMark } from '../premium-mark/premium-mark';
 import { Link } from 'react-router-dom';
+import {MouseEvent} from 'react';
 
 type PlacesListScreenProps = {
   rentingOffers: Offers;
-  onListItemHover?: (id : string) => void;
+  onListItemHover: (listItemName: string) => void;
 }
 
 function PlacesList ({rentingOffers,onListItemHover}: PlacesListScreenProps,):JSX.Element {
-  const handleListItemHover = (evt) => {
-    evt.preventDefault();
-    console.log(evt.currentTarget)
-    onListItemHover(evt.target.innerText);
+  const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    console.log(event.currentTarget.innerText)
+    onListItemHover(event.currentTarget.innerText);
   };
 
   return (
