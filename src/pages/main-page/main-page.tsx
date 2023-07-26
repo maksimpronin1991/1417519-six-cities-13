@@ -1,12 +1,27 @@
 import PlacesList from '../../components/places-list/places-list';
 import Logo from '../../components/logo/logo';
 import { Offers } from '../../types/offer';
+import Map from '../../components/map/map';
+import { CITY } from '../../mocks/city';
+import { useState } from 'react';
+
 
 type MainScreenProps = {
   rentingOffers: Offers;
 }
 
 function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
+
+  const [selectedPoint, setSelectedPoint] = useState({});
+
+  const handleListItemHover = (id: string) => {
+    const currentPoint = rentingOffers.find((point) =>
+      point.id === id,
+    );
+
+    setSelectedPoint(currentPoint);
+  };
+
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -106,12 +121,10 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
                   </li>
                 </ul>
               </form>
-
-              <PlacesList rentingOffers = {rentingOffers}/>
-
+              <PlacesList rentingOffers = {rentingOffers} onListItemHover={handleListItemHover}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map city={CITY} points={rentingOffers}/>
             </div>
           </div>
         </div>
