@@ -9,7 +9,7 @@ type UseMapScreenProps = {
 
 function useMap({mapRef, city}:UseMapScreenProps) {
 
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState<Map | null>();
   const isRenderedRef = useRef(false);
 
   useEffect(() => {
