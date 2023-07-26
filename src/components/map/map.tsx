@@ -1,7 +1,7 @@
-import { useEffect, useRef,MutableRefObject} from 'react';
+import { useEffect, useRef} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import layerGroup from 'leaflet';
+import {layerGroup, Marker} from 'leaflet';
 import useMap from '../custom-hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { City, Offers } from '../../types/offer';
@@ -27,19 +27,24 @@ const currentCustomIcon = leaflet.icon({
 
 function Map({city,points}:MapScreenProps) {
 
-  const mapRef:MutableRefObject<HTMLElement | null> = useRef(null);
+  const mapRef = useRef(null);
   const map = useMap({mapRef, city});
 
   useEffect(()=>{
     if(map) {
       const markerLayer = layerGroup().addTo(map);
+
       points.forEach((point) => {
         const marker = new Marker({
-            lat: point.location.latitude,
-            lng: point.location.longitude,
-          })
-          .addTo(markerLayer);
+          lat: point.location.latitude,
+          lng: point.location.longitude,
+        });
+        marker.addTo(markerLayer);
+
       });
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
   },[map,points]);
 
