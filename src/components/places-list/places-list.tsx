@@ -2,14 +2,18 @@ import { Offer, Offers } from '../../types/offer';
 import { PremiumMark } from '../premium-mark/premium-mark';
 import { Link } from 'react-router-dom';
 import {MouseEvent} from 'react';
+import cn from 'classnames';
+import { classesFor } from '../../types/classes-for';
 
 type PlacesListScreenProps = {
   rentingOffers: Offers;
   onListItemHover: (listItemName: string) => void;
   onListItemUnHover:(listItemName: string) => void;
+  classesForPlacesList:classesFor;
 }
 
-function PlacesList ({rentingOffers,onListItemHover,onListItemUnHover}: PlacesListScreenProps,):JSX.Element {
+function PlacesList ({rentingOffers,onListItemHover,onListItemUnHover,classesForPlacesList}: PlacesListScreenProps,):JSX.Element {
+  const {placesListType,placesCardType,imageWrapper} = classesForPlacesList;
   const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemHover(event.currentTarget.id);
@@ -22,17 +26,17 @@ function PlacesList ({rentingOffers,onListItemHover,onListItemUnHover}: PlacesLi
 
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={cn(placesListType,'places__list')}>
       {rentingOffers.map((offer:Offer) => (
         <article
-          className="cities__card place-card"
+          className={cn(placesCardType,'place-card')}
           key={offer.id}
           id={offer.id}
           onMouseEnter={handleListItemHover}
           onMouseLeave={handleListItemUnHover}
         >
           {offer.isFavorite ? <PremiumMark/> : ''}
-          <div className="cities__image-wrapper place-card__image-wrapper">
+          <div className={cn(imageWrapper,'place-card__image-wrapper')}>
             <a href="#">
               <img
                 className="place-card__image"

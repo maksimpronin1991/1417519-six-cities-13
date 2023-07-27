@@ -5,12 +5,19 @@ import Map from '../../components/map/map';
 import { CITY } from '../../mocks/city';
 import { useState } from 'react';
 
-
 type MainScreenProps = {
   rentingOffers: Offers;
 }
 
 function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
+
+  const classesForPlacesList = {
+    mapType:'cities__map',
+    placesListType: 'cities__places-list  tabs__content',
+    placesCardType: 'cities__card',
+    imageWrapper:'cities__image-wrapper',
+  };
+
 
   const [selectedPoint, setSelectedPoint] = useState<Offer | undefined>(
     undefined
@@ -131,10 +138,17 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
                 rentingOffers = {rentingOffers}
                 onListItemHover={handleListItemHover}
                 onListItemUnHover={handleListItemUnHover}
+                classesForPlacesList={classesForPlacesList}
+
               />
             </section>
             <div className="cities__right-section">
-              <Map city={CITY} points={rentingOffers} selectedPoint={selectedPoint}/>
+              <Map
+                city={CITY}
+                points={rentingOffers}
+                selectedPoint={selectedPoint}
+                mapType = {classesForPlacesList.mapType}
+              />
             </div>
           </div>
         </div>

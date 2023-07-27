@@ -49,6 +49,7 @@ function App ({rentingOffers,fullOffers}: AppProps): JSX.Element{
           element={
             <OfferPage
               fullOffers = {fullOffers}
+              rentingOffers = {rentingOffers}
             />
           }
         />
