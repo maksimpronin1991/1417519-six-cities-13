@@ -4,6 +4,7 @@ import { Offer, Offers } from '../../types/offer';
 import Map from '../../components/map/map';
 import { CITY } from '../../mocks/city';
 import { useState } from 'react';
+import HeaderNav from '../../components/header-nav/header-nav';
 
 type MainScreenProps = {
   rentingOffers: Offers;
@@ -41,27 +42,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <Logo/>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                  Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <HeaderNav/>
           </div>
         </div>
       </header>
@@ -72,7 +53,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
             <ul className="locations__list tabs__list">
               <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
+                  <span>Parissssss</span>
                 </a>
               </li>
               <li className="locations__item">
