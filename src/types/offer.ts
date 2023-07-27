@@ -51,4 +51,4 @@ type FullOffer = {
 
 type FullOffers = FullOffer[]
 
-export type {Offers,Offer,FullOffers,FullOffer,Host};
+export type {Offers,Offer,FullOffers,FullOffer,Host,City};

@@ -1,12 +1,33 @@
 import PlacesList from '../../components/places-list/places-list';
 import Logo from '../../components/logo/logo';
-import { Offers } from '../../types/offer';
+import { Offer, Offers } from '../../types/offer';
+import Map from '../../components/map/map';
+import { CITY } from '../../mocks/city';
+import { useState } from 'react';
+
 
 type MainScreenProps = {
   rentingOffers: Offers;
 }
 
 function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
+
+  const [selectedPoint, setSelectedPoint] = useState<Offer | undefined>(
+    undefined
+  );
+
+  const handleListItemHover = (listItemName: string) => {
+    const currentPoint = rentingOffers.find((point) => point.id === listItemName);
+    setSelectedPoint(currentPoint);
+  };
+
+  const handleListItemUnHover = (listItemName: string) => {
+    const currentPoint = rentingOffers.find((point) => point.id === listItemName);
+    if(currentPoint){
+      setSelectedPoint(undefined);
+    }
+  };
+
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -43,7 +64,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <a className="locations__item-link tabs__item" href="#">
                   <span>Paris</span>
                 </a>
               </li>
@@ -58,7 +79,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item " href="#">
+                <a className="locations__item-link tabs__item  tabs__item--active" >
                   <span>Amsterdam</span>
                 </a>
               </li>
@@ -106,12 +127,14 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
                   </li>
                 </ul>
               </form>
-
-              <PlacesList rentingOffers = {rentingOffers}/>
-
+              <PlacesList
+                rentingOffers = {rentingOffers}
+                onListItemHover={handleListItemHover}
+                onListItemUnHover={handleListItemUnHover}
+              />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map city={CITY} points={rentingOffers} selectedPoint={selectedPoint}/>
             </div>
           </div>
         </div>
