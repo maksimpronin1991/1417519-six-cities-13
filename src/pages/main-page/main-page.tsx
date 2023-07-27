@@ -21,6 +21,13 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
     setSelectedPoint(currentPoint);
   };
 
+  const handleListItemUnHover = (listItemName: string) => {
+    const currentPoint = rentingOffers.find((point) => point.id === listItemName);
+    if(currentPoint){
+      setSelectedPoint(undefined);
+    }
+  };
+
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -120,7 +127,11 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
                   </li>
                 </ul>
               </form>
-              <PlacesList rentingOffers = {rentingOffers} onListItemHover={handleListItemHover}/>
+              <PlacesList
+                rentingOffers = {rentingOffers}
+                onListItemHover={handleListItemHover}
+                onListItemUnHover={handleListItemUnHover}
+              />
             </section>
             <div className="cities__right-section">
               <Map city={CITY} points={rentingOffers} selectedPoint={selectedPoint}/>

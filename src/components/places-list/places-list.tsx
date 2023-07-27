@@ -6,18 +6,31 @@ import {MouseEvent} from 'react';
 type PlacesListScreenProps = {
   rentingOffers: Offers;
   onListItemHover: (listItemName: string) => void;
+  onListItemUnHover:(listItemName: string) => void;
 }
 
-function PlacesList ({rentingOffers,onListItemHover}: PlacesListScreenProps,):JSX.Element {
+function PlacesList ({rentingOffers,onListItemHover,onListItemUnHover}: PlacesListScreenProps,):JSX.Element {
   const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemHover(event.currentTarget.id);
   };
 
+  const handleListItemUnHover = (event:MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    onListItemUnHover(event.currentTarget.id);
+  };
+
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {rentingOffers.map((offer:Offer) => (
-        <article className="cities__card place-card" key={offer.id} id={offer.id} onMouseEnter={handleListItemHover}>
+        <article
+          className="cities__card place-card"
+          key={offer.id}
+          id={offer.id}
+          onMouseEnter={handleListItemHover}
+          onMouseLeave={handleListItemUnHover}
+        >
           {offer.isFavorite ? <PremiumMark/> : ''}
           <div className="cities__image-wrapper place-card__image-wrapper">
             <a href="#">
