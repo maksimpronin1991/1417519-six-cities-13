@@ -53,7 +53,7 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
             <ul className="locations__list tabs__list">
               <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="#">
-                  <span>Parissssss</span>
+                  <span>Paris</span>
                 </a>
               </li>
               <li className="locations__item">
