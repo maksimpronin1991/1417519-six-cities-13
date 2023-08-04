@@ -5,11 +5,14 @@ import {layerGroup, Marker} from 'leaflet';
 import useMap from '../custom-hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { City, Offer, Offers } from '../../types/offer';
+import cn from 'classnames';
+
 
 type MapScreenProps = {
   city: City;
   points: Offers;
   selectedPoint: Offer | undefined;
+  mapType: string;
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -24,7 +27,7 @@ const currentCustomIcon = leaflet.icon({
 });
 
 
-function Map({city,points,selectedPoint}:MapScreenProps) {
+function Map({city,points,selectedPoint,mapType}:MapScreenProps) {
 
   const mapRef = useRef(null);
   const map = useMap({mapRef, city});
@@ -53,7 +56,7 @@ function Map({city,points,selectedPoint}:MapScreenProps) {
 
   return (
     <section
-      className='cities__map map'
+      className = {cn(mapType,'map')}
       ref={mapRef}
     >
     </section>
