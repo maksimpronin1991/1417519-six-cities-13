@@ -7,14 +7,13 @@ import FavorivePage from '../../pages/favorite-page/favorite-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import Error from '../../pages/404-page/404-page';
 import PrivateRoute from '../private-route/private-route';
-import { FullOffers, Offers } from '../../types/offer';
+import { FullOffers } from '../../types/offer';
 
 type AppProps = {
   fullOffers: FullOffers;
-  rentingOffers: Offers;
 }
 
-function App ({rentingOffers,fullOffers}: AppProps): JSX.Element{
+function App ({fullOffers}: AppProps): JSX.Element{
   return (
     <BrowserRouter>
       <Routes>
@@ -22,9 +21,7 @@ function App ({rentingOffers,fullOffers}: AppProps): JSX.Element{
           path={AppRoute.Main}
           element=
             {
-              <MainPage
-                rentingOffers = {rentingOffers}
-              />
+              <MainPage/>
             }
         />
         <Route
@@ -38,9 +35,7 @@ function App ({rentingOffers,fullOffers}: AppProps): JSX.Element{
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavorivePage
-                rentingOffers = {rentingOffers}
-              />
+              <FavorivePage/>
             </PrivateRoute>
           }
         />
@@ -49,7 +44,6 @@ function App ({rentingOffers,fullOffers}: AppProps): JSX.Element{
           element={
             <OfferPage
               fullOffers = {fullOffers}
-              rentingOffers = {rentingOffers}
             />
           }
         />

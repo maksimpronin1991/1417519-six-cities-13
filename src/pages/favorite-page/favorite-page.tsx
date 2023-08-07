@@ -1,13 +1,12 @@
 import Logo from '../../components/logo/logo';
-import { Offers } from '../../types/offer';
 import FavoriteLocItems from '../../components/favorites/favotite-location-items';
 import HeaderNav from '../../components/header-nav/header-nav';
+import { useAppSelector } from '../../components/hooks/use-select';
 
-type FavoriteScreenProps = {
-  rentingOffers: Offers;
-}
 
-function FavorivePage ({rentingOffers}: FavoriteScreenProps):JSX.Element{
+function FavorivePage ():JSX.Element{
+
+  const rentingOffers = useAppSelector((state)=> state.offers);
   return (
     <div className="page">
       <header className="header">
