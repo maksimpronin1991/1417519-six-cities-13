@@ -28,7 +28,6 @@ const currentCustomIcon = leaflet.icon({
 
 
 function Map({city,points,selectedPoint,mapType}:MapScreenProps) {
-
   const mapRef = useRef(null);
   const map = useMap({mapRef, city});
 
