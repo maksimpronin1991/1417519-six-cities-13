@@ -14,6 +14,7 @@ import NearPlaces from '../../components/near-palces/near-places';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { useAppSelector } from '../../components/hooks/use-select';
 
+
 type OfferPageScreenProps = {
   fullOffers: FullOffers;
 }

@@ -1,8 +1,8 @@
 import PlacesList from '../../components/places-list/places-list';
 import Logo from '../../components/logo/logo';
-import { City, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import Map from '../../components/map/map';
-import { CITYES } from '../../mocks/city';
+import { CITY } from '../../mocks/city';
 import { useState } from 'react';
 import HeaderNav from '../../components/header-nav/header-nav';
 import LocationList from '../../components/location-list/location-list';
@@ -30,7 +30,6 @@ function MainPage ():JSX.Element {
     const currentPoint = actualOffer.find((point) => point.id === listItemName);
     setSelectedPoint(currentPoint);
   };
-  const cityMap = CITYES.find((city) => city.name === activeCity) as City;
 
   const handleListItemUnHover = (listItemName: string) => {
     const currentPoint = actualOffer.find((point) => point.id === listItemName);
@@ -71,7 +70,7 @@ function MainPage ():JSX.Element {
             </section>
             <div className="cities__right-section">
               <Map
-                city={cityMap}
+                city={CITY}
                 points={actualOffer}
                 selectedPoint={selectedPoint}
                 mapType = {classesForPlacesList.mapType}
