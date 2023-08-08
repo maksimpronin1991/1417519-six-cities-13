@@ -7,7 +7,6 @@ import OfferInside from '../../components/offer-inside/offer-inside';
 import OfferHost from '../../components/offer-host/offer-host';
 import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
-import { CITY } from '../../mocks/city';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import NearPlaces from '../../components/near-palces/near-places';
@@ -21,7 +20,7 @@ type OfferPageScreenProps = {
 
 function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
   const rentingOffers = useAppSelector((state)=> state.offers);
-
+  const currentCity = useAppSelector((state) => state.currentCity);
   const mapType = 'offer__map';
   const classesForPlacesList = {
     mapType:'offer__map',
@@ -48,7 +47,7 @@ function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
 
   const {id} = useParams();
   const actualOffer: FullOffer = fullOffers.find((offer) => offer.id === id) as FullOffer;
-  const neighbourhoodOffers = rentingOffers.filter((offer) => offer.id !== actualOffer.id);
+  const neighbourhoodOffers = rentingOffers.filter((offer) => offer.city.name === currentCity && offer.id !== actualOffer.id);
 
   return (
     <div className="page">
@@ -108,7 +107,6 @@ function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
             </div>
           </div>
           <Map
-            city={CITY}
             points={neighbourhoodOffers}
             selectedPoint={selectedPoint}
             mapType = {mapType}
