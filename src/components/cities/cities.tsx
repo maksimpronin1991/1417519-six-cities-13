@@ -1,6 +1,5 @@
 import PlacesList from '../../components/places-list/places-list';
 import Map from '../../components/map/map';
-import { CITY } from '../../mocks/city';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import { useAppSelector } from '../../components/hooks/use-select';
@@ -54,7 +53,6 @@ function Cities ():JSX.Element {
         </section>
         <div className="cities__right-section">
           <Map
-            city={CITY}
             points={actualOffer}
             selectedPoint={selectedPoint}
             mapType = {classesForPlacesList.mapType}

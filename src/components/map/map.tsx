@@ -1,4 +1,4 @@
-import { useEffect, useRef} from 'react';
+import { useEffect, useRef, useState} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import {layerGroup, Marker} from 'leaflet';
@@ -6,10 +6,11 @@ import useMap from '../hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { City, Offer, Offers } from '../../types/offer';
 import cn from 'classnames';
+import { CITYES } from '../../mocks/city';
+import { useAppSelector } from '../hooks/use-select';
 
 
 type MapScreenProps = {
-  city: City;
   points: Offers;
   selectedPoint: Offer | undefined;
   mapType: string;
@@ -27,9 +28,13 @@ const currentCustomIcon = leaflet.icon({
 });
 
 
-function Map({city,points,selectedPoint,mapType}:MapScreenProps) {
+function Map({points,selectedPoint,mapType}:MapScreenProps) {
+  const actualCity = useAppSelector((state) => state.currentCity);
+  const city = CITYES.find((cityes) => cityes.name === actualCity) as City;
   const mapRef = useRef(null);
   const map = useMap({mapRef, city});
+  const [currentCity, setCurrentCity] = useState(city);
+
   useEffect(()=>{
     if(map) {
       const markerLayer = layerGroup().addTo(map);
@@ -45,11 +50,17 @@ function Map({city,points,selectedPoint,mapType}:MapScreenProps) {
         )
           .addTo(markerLayer);
       });
+
+      if (currentCity !== city) {
+        map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+        setCurrentCity(city);
+      }
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  },[map,points,selectedPoint]);
+  },[city, currentCity, map, points, selectedPoint]);
 
   return (
     <section
