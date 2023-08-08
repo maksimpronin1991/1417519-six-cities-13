@@ -18,6 +18,7 @@ function NearPlaces({neighbourhoodOffers,handleListItemHover,handleListItemUnHov
 Other places in the neighbourhood
       </h2>
       <PlacesList
+        activeSorting={'Popular'}
         rentingOffers = {neighbourhoodOffers}
         onListItemHover={handleListItemHover}
         onListItemUnHover={handleListItemUnHover}

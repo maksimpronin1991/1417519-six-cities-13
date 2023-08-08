@@ -26,7 +26,6 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
     onListItemUnHover(event.currentTarget.id);
   };
 
-
   return (
     <div className={cn(placesListType,'places__list')}>
       {sorting[activeSorting](rentingOffers).map((offer:Offer) => (
