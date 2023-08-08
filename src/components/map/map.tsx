@@ -33,7 +33,6 @@ function Map({city,points,selectedPoint,mapType}:MapScreenProps) {
   useEffect(()=>{
     if(map) {
       const markerLayer = layerGroup().addTo(map);
-
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,

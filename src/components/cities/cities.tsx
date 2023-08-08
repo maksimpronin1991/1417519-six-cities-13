@@ -27,7 +27,6 @@ function Cities ():JSX.Element {
     const currentPoint = actualOffer.find((point) => point.id === listItemName);
     setSelectedPoint(currentPoint);
   };
-
   const handleListItemUnHover = (listItemName: string) => {
     const currentPoint = actualOffer.find((point) => point.id === listItemName);
     if(currentPoint){
