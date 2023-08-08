@@ -21,6 +21,7 @@ type OfferPageScreenProps = {
 function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
   const rentingOffers = useAppSelector((state)=> state.offers);
   const currentCity = useAppSelector((state) => state.currentCity);
+  const {id} = useParams();
   const mapType = 'offer__map';
   const classesForPlacesList = {
     mapType:'offer__map',
@@ -45,7 +46,6 @@ function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
     }
   };
 
-  const {id} = useParams();
   const actualOffer: FullOffer = fullOffers.find((offer) => offer.id === id) as FullOffer;
   const neighbourhoodOffers = rentingOffers.filter((offer) => offer.city.name === currentCity && offer.id !== actualOffer.id);
 

@@ -5,7 +5,7 @@ export const rentingOffers:Offers = [
     'id': '4cad0267-552b-4382-9510-b1669498c13f',
     'title': 'Canal View Prinsengracht',
     'type': 'hotel',
-    'price': 490,
+    'price': 402,
     'previewImage': 'https://13.design.pages.academy/static/hotel/12.jpg',
     'city': {
       'name': 'Paris',
