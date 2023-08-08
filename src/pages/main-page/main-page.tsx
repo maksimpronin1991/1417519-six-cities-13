@@ -2,8 +2,16 @@ import Logo from '../../components/logo/logo';
 import HeaderNav from '../../components/header-nav/header-nav';
 import LocationList from '../../components/location-list/location-list';
 import { Cities } from '../../components/cities/cities';
+import { useAppSelector } from '../../components/hooks/use-select';
+import { CitiesEmpty } from '../../components/cities-empty/cities-empty';
 
 function MainPage ():JSX.Element {
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector((state) => state.offers);
+  const avalibleOffers = offers.find((offer)=> offer.city.name === currentCity);
+  const checkAvalibleOffers = avalibleOffers === undefined;
+
+
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -20,7 +28,8 @@ function MainPage ():JSX.Element {
           <section className="locations container">
             <LocationList/>
           </section>
-          <Cities/>
+          {!checkAvalibleOffers && <Cities/> }
+          {checkAvalibleOffers && <CitiesEmpty/> }
         </div>
       </main>
     </div>

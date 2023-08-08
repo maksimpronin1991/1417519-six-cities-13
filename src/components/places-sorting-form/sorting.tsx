@@ -51,10 +51,7 @@ function Sorting ({activeSorting, onChange}: SortingProps){
         </svg>
       </span>
       <ul className={cn(`places__options places__options--custom ${opened}`)}>
-        {(Object.entries(SortingMap) as [
-          TSorting,
-          (typeof SortingMap)[TSorting]
-        ][]
+        {(Object.entries(SortingMap)
         ).map(([type,label]) => (
           <li
             key={type}

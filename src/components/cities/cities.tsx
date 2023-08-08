@@ -5,10 +5,9 @@ import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import { useAppSelector } from '../../components/hooks/use-select';
 import Sorting from '../places-sorting-form/sorting';
-import { TSorting } from '../../types/sorting';
 
 function Cities ():JSX.Element {
-  const [activeSorting,setActiveSorting] = useState<TSorting>('Popular');
+  const [activeSorting,setActiveSorting] = useState('Popular');
   const [selectedPoint, setSelectedPoint] = useState<Offer | undefined>(
     undefined
   );

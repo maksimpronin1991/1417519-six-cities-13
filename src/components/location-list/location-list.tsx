@@ -9,7 +9,6 @@ import classNames from 'classnames';
 function LocationList () {
   const currentCity = useAppSelector((state) => state.currentCity);
   const dispatch = useAppDispatch();
-
   const handleCityClick = (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     const city = evt.currentTarget.dataset.city;
