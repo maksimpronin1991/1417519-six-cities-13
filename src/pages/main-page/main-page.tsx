@@ -1,18 +1,15 @@
 import PlacesList from '../../components/places-list/places-list';
 import Logo from '../../components/logo/logo';
-import { Offer, Offers } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import Map from '../../components/map/map';
 import { CITY } from '../../mocks/city';
 import { useState } from 'react';
 import HeaderNav from '../../components/header-nav/header-nav';
 import LocationList from '../../components/location-list/location-list';
 import PlacesSortingForm from '../../components/places-sorting-form/places-sorting-form';
+import { useAppSelector } from '../../components/hooks/use-select';
 
-type MainScreenProps = {
-  rentingOffers: Offers;
-}
-
-function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
+function MainPage ():JSX.Element {
 
   const classesForPlacesList = {
     mapType:'cities__map',
@@ -26,13 +23,16 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
     undefined
   );
 
+  const activeCity = useAppSelector((state)=> state.currentCity);
+  const rentingOffers = useAppSelector((state)=> state.offers);
+  const actualOffer = rentingOffers.filter((offer)=> offer.city.name === activeCity);
   const handleListItemHover = (listItemName: string) => {
-    const currentPoint = rentingOffers.find((point) => point.id === listItemName);
+    const currentPoint = actualOffer.find((point) => point.id === listItemName);
     setSelectedPoint(currentPoint);
   };
 
   const handleListItemUnHover = (listItemName: string) => {
-    const currentPoint = rentingOffers.find((point) => point.id === listItemName);
+    const currentPoint = actualOffer.find((point) => point.id === listItemName);
     if(currentPoint){
       setSelectedPoint(undefined);
     }
@@ -59,20 +59,19 @@ function MainPage ({rentingOffers}: MainScreenProps):JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{rentingOffers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{actualOffer.length} places to stay in {activeCity}</b>
               <PlacesSortingForm/>
               <PlacesList
-                rentingOffers = {rentingOffers}
+                rentingOffers = {actualOffer}
                 onListItemHover={handleListItemHover}
                 onListItemUnHover={handleListItemUnHover}
                 classesForPlacesList={classesForPlacesList}
-
               />
             </section>
             <div className="cities__right-section">
               <Map
                 city={CITY}
-                points={rentingOffers}
+                points={actualOffer}
                 selectedPoint={selectedPoint}
                 mapType = {classesForPlacesList.mapType}
               />

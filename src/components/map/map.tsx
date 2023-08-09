@@ -2,7 +2,7 @@ import { useEffect, useRef} from 'react';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import {layerGroup, Marker} from 'leaflet';
-import useMap from '../custom-hooks/use-map';
+import useMap from '../hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { City, Offer, Offers } from '../../types/offer';
 import cn from 'classnames';
@@ -28,10 +28,8 @@ const currentCustomIcon = leaflet.icon({
 
 
 function Map({city,points,selectedPoint,mapType}:MapScreenProps) {
-
   const mapRef = useRef(null);
   const map = useMap({mapRef, city});
-
   useEffect(()=>{
     if(map) {
       const markerLayer = layerGroup().addTo(map);

@@ -8,17 +8,20 @@ import OfferHost from '../../components/offer-host/offer-host';
 import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
 import { CITY } from '../../mocks/city';
-import { Offers,Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import NearPlaces from '../../components/near-palces/near-places';
 import HeaderNav from '../../components/header-nav/header-nav';
+import { useAppSelector } from '../../components/hooks/use-select';
+
 
 type OfferPageScreenProps = {
   fullOffers: FullOffers;
-  rentingOffers: Offers;
 }
 
-function OfferPage({fullOffers,rentingOffers}: OfferPageScreenProps): JSX.Element {
+function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
+  const rentingOffers = useAppSelector((state)=> state.offers);
+
   const mapType = 'offer__map';
   const classesForPlacesList = {
     mapType:'offer__map',
