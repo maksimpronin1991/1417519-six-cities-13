@@ -7,13 +7,10 @@ import FavorivePage from '../../pages/favorite-page/favorite-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import Error from '../../pages/404-page/404-page';
 import PrivateRoute from '../private-route/private-route';
-import { FullOffers } from '../../types/offer';
+import { fullOffers } from '../../mocks/more-offer';
 
-type AppProps = {
-  fullOffers: FullOffers;
-}
 
-function App ({fullOffers}: AppProps): JSX.Element{
+function App (): JSX.Element{
   return (
     <BrowserRouter>
       <Routes>
