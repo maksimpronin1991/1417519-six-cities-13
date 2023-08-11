@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 import {MouseEvent} from 'react';
 import cn from 'classnames';
 import { classesFor } from '../../types/classes-for';
+import { sorting } from '../../utils/utils';
 
 type PlacesListScreenProps = {
+  activeSorting: string;
   rentingOffers: Offers;
   onListItemHover: (listItemName: string) => void;
   onListItemUnHover:(listItemName: string) => void;
   classesForPlacesList:classesFor;
 }
 
-function PlacesList ({rentingOffers,onListItemHover,onListItemUnHover,classesForPlacesList}: PlacesListScreenProps,):JSX.Element {
+function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHover,classesForPlacesList}: PlacesListScreenProps,):JSX.Element {
   const {placesListType,placesCardType,imageWrapper} = classesForPlacesList;
   const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
@@ -24,10 +26,9 @@ function PlacesList ({rentingOffers,onListItemHover,onListItemUnHover,classesFor
     onListItemUnHover(event.currentTarget.id);
   };
 
-
   return (
     <div className={cn(placesListType,'places__list')}>
-      {rentingOffers.map((offer:Offer) => (
+      {sorting[activeSorting](rentingOffers).map((offer:Offer) => (
         <article
           className={cn(placesCardType,'place-card')}
           key={offer.id}

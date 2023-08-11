@@ -2,6 +2,50 @@ import { FullOffers } from '../types/offer';
 
 export const fullOffers:FullOffers = [
   {
+    'id': '4cad0267-552b-4382-9510-b1669498c13f',
+    'title': 'Canal View Prinsengracht',
+    'description': 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
+    'type': 'hotel',
+    'price': 402,
+    'images': [
+      'https://13.design.pages.academy/static/hotel/15.jpg',
+      'https://13.design.pages.academy/static/hotel/8.jpg',
+      'https://13.design.pages.academy/static/hotel/19.jpg',
+      'https://13.design.pages.academy/static/hotel/10.jpg',
+      'https://13.design.pages.academy/static/hotel/5.jpg',
+      'https://13.design.pages.academy/static/hotel/11.jpg'
+    ],
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.868610000000004,
+      'longitude': 2.342499,
+      'zoom': 16
+    },
+    'goods': [
+      'Washing machine',
+      'Cable TV',
+      'Air conditioning'
+    ],
+    'host': {
+      'isPro': true,
+      'name': 'Angelina',
+      'avatarUrl': 'https://13.design.pages.academy/static/host/avatar-angelina.jpg'
+    },
+    'isPremium': false,
+    'isFavorite': false,
+    'rating': 1.8,
+    'bedrooms': 1,
+    'maxAdults': 2,
+    'reviews': ['b041999e-e959-4452-aea1-06561bcd78e3','91ccc8f7-688a-4d9b-8998-a2f9713c1a6c']
+  },
+  {
     'id': 'e4d1588c-9372-4d2c-a08b-caaf23f668e6',
     'title': 'The house among olive ',
     'description': 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',

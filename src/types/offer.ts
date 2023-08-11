@@ -16,6 +16,8 @@ type City = {
     location: Location;
 }
 
+type Cityes = City[]
+
 type Location = {
     latitude: number;
     longitude: number;
@@ -51,4 +53,4 @@ type FullOffer = {
 
 type FullOffers = FullOffer[]
 
-export type {Offers,Offer,FullOffers,FullOffer,Host,City};
+export type {Offers,Offer,FullOffers,FullOffer,Host,City,Cityes};

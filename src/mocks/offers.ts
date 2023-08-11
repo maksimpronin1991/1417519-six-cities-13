@@ -2,6 +2,29 @@ import { Offers } from '../types/offer';
 
 export const rentingOffers:Offers = [
   {
+    'id': '4cad0267-552b-4382-9510-b1669498c13f',
+    'title': 'Canal View Prinsengracht',
+    'type': 'hotel',
+    'price': 402,
+    'previewImage': 'https://13.design.pages.academy/static/hotel/12.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.868610000000004,
+      'longitude': 2.342499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 2.9
+  },
+  {
     'id': 'e4d1588c-9372-4d2c-a08b-caaf23f668e6',
     'title': 'The house among olive ',
     'type': 'hotel',
