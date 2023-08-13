@@ -1,6 +1,6 @@
 import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
-import { FullOffer, FullOffers } from '../../types/offer';
+import { FullOffer, Offers } from '../../types/offer';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import { OfferPremiumMark } from '../../components/offer-premium-mark/offer-premium-mark';
 import OfferInside from '../../components/offer-inside/offer-inside';
@@ -8,20 +8,37 @@ import OfferHost from '../../components/offer-host/offer-host';
 import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
 import { Offer } from '../../types/offer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NearPlaces from '../../components/near-palces/near-places';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { useAppSelector } from '../../components/hooks/use-select';
+import { fetchNeigbourhoodOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../components/hooks/use-dispatch';
+import { dropOffer } from '../../store/action';
 
+function OfferPage(): JSX.Element {
+  const {offerId} = useParams();
+  const dispatch = useAppDispatch();
 
-type OfferPageScreenProps = {
-  fullOffers: FullOffers;
-}
+  useEffect(() => {
+    if (offerId) {
+      dispatch(fetchOfferAction(offerId));
+      dispatch(fetchNeigbourhoodOffersAction(offerId));
+      dispatch(fetchReviewsAction(offerId));
+    }
 
-function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
+    return () => {
+      dispatch(dropOffer());
+    };
+
+  }, [offerId, dispatch]);
+
   const rentingOffers = useAppSelector((state)=> state.offers);
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const {id} = useParams();
+
+
+  const actualOffer: FullOffer = useAppSelector((state)=> state.offer) as FullOffer;
+  const neighbourhoodOffers = useAppSelector((state)=> state.nearPlaces) as Offers;
+
   const mapType = 'offer__map';
   const classesForPlacesList = {
     mapType:'offer__map',
@@ -45,9 +62,6 @@ function OfferPage({fullOffers}: OfferPageScreenProps): JSX.Element {
       setSelectedPoint(undefined);
     }
   };
-
-  const actualOffer: FullOffer = fullOffers.find((offer) => offer.id === id) as FullOffer;
-  const neighbourhoodOffers = rentingOffers.filter((offer) => offer.city.name === currentCity && offer.id !== actualOffer.id);
 
   return (
     <div className="page">

@@ -1,12 +1,14 @@
 import { Offers } from '../../types/offer';
 import FavoritePlaceCard from '../favorites-place-card/favorites-place-card';
 
+
 type FavoriteLocItemsScreenProps = {
   rentingOffers: Offers;
 }
 
 function FavoriteLocItems ({rentingOffers}: FavoriteLocItemsScreenProps):JSX.Element {
   const favoriteOffers = rentingOffers.filter((offer) => offer.isFavorite === true);
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
