@@ -1,23 +1,51 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../consts';
+import { useAppDispatch } from '../hooks/use-dispatch';
+import { useAppSelector } from '../hooks/use-select';
+import { logoutAction } from '../../store/api-actions';
+
 function HeaderNav () {
+
+  const dispatch = useAppDispatch();
+
+
+  const userData = useAppSelector((state) => state.userData);
+  const favorites = useAppSelector((state) => state.favorites);
+
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <a
+          <Link
             className="header__nav-link header__nav-link--profile"
-            href="#"
+            to={AppRoute.Favorites}
           >
-            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+            <div className="header__avatar-wrapper user__avatar-wrapper">
+              {userData?.avatarUrl
+                  &&
+                  <img src={userData?.avatarUrl}
+                    width={20} height={20}
+                    style={{borderRadius:'50%'}}
+                  />}
+            </div>
             <span className="header__user-name user__name">
-      Oliver.conner@gmail.com
+              {userData?.email}
             </span>
-            <span className="header__favorite-count">3</span>
-          </a>
+            {favorites.length > 0 && <span className="header__favorite-count">{favorites.length}</span>}
+          </Link>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="#">
+          <Link
+            className="header__nav-link"
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(logoutAction());
+            } }
+            to={AppRoute.Main}
+          >
             <span className="header__signout">Sign out</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

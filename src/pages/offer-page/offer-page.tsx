@@ -19,18 +19,15 @@ import { dropOffer } from '../../store/action';
 function OfferPage(): JSX.Element {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     if (offerId) {
       dispatch(fetchOfferAction(offerId));
       dispatch(fetchNeigbourhoodOffersAction(offerId));
       dispatch(fetchReviewsAction(offerId));
     }
-
     return () => {
       dispatch(dropOffer());
     };
-
   }, [offerId, dispatch]);
 
   const rentingOffers = useAppSelector((state)=> state.offers);

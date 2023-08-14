@@ -32,9 +32,10 @@ export const fetchOfferAction = createAsyncThunk<void, string, {
   `${NameSpace.Offer}/fetchOffer`,
   async (offerId, {dispatch, extra: api}) => {
     dispatch(setOffersDataLoadingStatus(true));
+
     const {data} = await api.get<FullOffer>(`${APIRoute.Offers}/${offerId}`);
-    dispatch(loadOffer(data));
     dispatch(setOffersDataLoadingStatus(false));
+    dispatch(loadOffer(data));
   },
 );
 
@@ -43,7 +44,7 @@ export const fetchNeigbourhoodOffersAction = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  `${NameSpace.NearPlaces}/fetchOffer`,
+  `${NameSpace.NearPlaces}/fetchNeigbourhoodOffers`,
   async (offerId, {dispatch, extra: api}) => {
     dispatch(setOffersDataLoadingStatus(true));
     const {data} = await api.get<Offers>(`${APIRoute.Offers}/${offerId}`);
@@ -57,7 +58,7 @@ export const fetchReviewsAction = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  `${NameSpace.NearPlaces}/fetchOffer`,
+  `${NameSpace.NearPlaces}/fetchReviews`,
   async (offerId, {dispatch, extra: api}) => {
     dispatch(setOffersDataLoadingStatus(true));
     const {data} = await api.get<Reviews>(`${APIRoute.Offers}/${offerId}`);

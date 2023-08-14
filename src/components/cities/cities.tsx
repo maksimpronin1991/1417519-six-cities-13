@@ -22,6 +22,7 @@ function Cities ():JSX.Element {
   const activeCity = useAppSelector((state)=> state.currentCity);
   const rentingOffers = useAppSelector((state)=> state.offers);
   const actualOffer = rentingOffers.filter((offer)=> offer.city.name === activeCity);
+
   const handleListItemHover = (listItemName: string) => {
     const currentPoint = actualOffer.find((point) => point.id === listItemName);
     setSelectedPoint(currentPoint);
