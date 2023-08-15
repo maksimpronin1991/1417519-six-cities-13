@@ -16,6 +16,7 @@ type PlacesListScreenProps = {
 
 function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHover,classesForPlacesList}: PlacesListScreenProps,):JSX.Element {
   const {placesListType,placesCardType,imageWrapper} = classesForPlacesList;
+
   const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemHover(event.currentTarget.id);
@@ -24,6 +25,7 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
   const handleListItemUnHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemUnHover(event.currentTarget.id);
+
   };
 
   return (
@@ -38,7 +40,10 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
         >
           {offer.isFavorite ? <PremiumMark/> : ''}
           <div className={cn(imageWrapper,'place-card__image-wrapper')}>
-            <a href="#">
+            <a
+
+              href="#"
+            >
               <img
                 className="place-card__image"
                 src={offer.previewImage}
