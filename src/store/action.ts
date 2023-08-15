@@ -15,8 +15,6 @@ export const loadOffer = createAction<FullOffer>('offer/loadOffer');
 
 export const loadReviews = createAction<Reviews>('offer/loadReviews');
 
-export const loadEmail = createAction<string>('main/loadEmail');
-
 export const dropOffer = createAction('OFFER/drop');
 
 export const loadFavorites = createAction<Offer>('main/loadFavorites');

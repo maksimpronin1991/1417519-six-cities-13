@@ -17,8 +17,10 @@ import { useAppDispatch } from '../../components/hooks/use-dispatch';
 import { dropOffer } from '../../store/action';
 
 function OfferPage(): JSX.Element {
-  const {offerId} = useParams();
+  const offerId = useParams().id as string;
   const dispatch = useAppDispatch();
+  const rentingOffers = useAppSelector((state)=> state.offers);
+
   useEffect(() => {
     if (offerId) {
       dispatch(fetchOfferAction(offerId));
@@ -29,9 +31,6 @@ function OfferPage(): JSX.Element {
       dispatch(dropOffer());
     };
   }, [offerId, dispatch]);
-
-  const rentingOffers = useAppSelector((state)=> state.offers);
-
 
   const actualOffer: FullOffer = useAppSelector((state)=> state.offer) as FullOffer;
   const neighbourhoodOffers = useAppSelector((state)=> state.nearPlaces) as Offers;
