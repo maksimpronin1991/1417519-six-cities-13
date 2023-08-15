@@ -1,7 +1,5 @@
 import { FullOffer } from '../../types/offer';
-import { avalibleReviews } from '../../mocks/reviews';
 import moment from 'moment';
-import { Reviews } from '../../types/reviews';
 
 type ReviewsListScreenProps = {
   actualOffer: FullOffer;
@@ -9,8 +7,7 @@ type ReviewsListScreenProps = {
 
 
 function ReviewsList ({actualOffer}: ReviewsListScreenProps):JSX.Element{
-  const reviews = actualOffer.reviews;
-  const actualReview = reviews.map((reviewId) => avalibleReviews.find((review)=>review.id === reviewId)) as Reviews;
+  const actualReview = actualOffer.reviews;
   return (
     <ul className="reviews__list">
       {actualReview.map((review) => (

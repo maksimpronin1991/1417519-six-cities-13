@@ -17,7 +17,7 @@ import { useAppDispatch } from '../../components/hooks/use-dispatch';
 import { dropOffer } from '../../store/action';
 
 function OfferPage(): JSX.Element {
-  const offerId = useParams().id as string;
+  const {offerId} = useParams();
   const dispatch = useAppDispatch();
   const rentingOffers = useAppSelector((state)=> state.offers);
 
