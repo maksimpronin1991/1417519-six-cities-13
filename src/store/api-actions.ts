@@ -87,8 +87,8 @@ export const postReview = createAsyncThunk<Review,Comment,{
  }
  >(
    `${NameSpace.Reviews}/postReview`,
-   async ({offerId, comment, rating}, { extra: api }) => {
-     const { data } = await api.post<Review>(`${APIRoute.Reviews}/${offerId}`, {comment, rating});
+   async ({offerId,comment, rating}, { extra: api }) => {
+     const { data } = await api.post<Review>(`${APIRoute.Reviews}/${offerId}`, (comment, rating));
      return data;
    },
  );

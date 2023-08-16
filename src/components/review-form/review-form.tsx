@@ -40,10 +40,10 @@ function ReviewForm (){
   };
 
 
-  const handleSubmitClick = (evt: FormEvent<HTMLButtonElement>) => {
+  const handleSubmitClick = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if(offerId){
-      dispatch(postReview({offerId,formData}));
+      dispatch(postReview({offerId, comment:formData.comment, rating:formData.rating}));
       setFormData({...formData, rating: 0, comment: ''});
     }
     setFormData({...formData,
@@ -56,7 +56,7 @@ function ReviewForm (){
     <>
       {authorizationStatus !== AuthorizationStatus.Auth && (<div></div>)}
       {authorizationStatus === AuthorizationStatus.Auth && (
-        <form className="reviews__form form" action="#" method="post">
+        <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmitClick}>
           <label className="reviews__label form__label" htmlFor="review">
     Your review
           </label>
@@ -161,7 +161,6 @@ function ReviewForm (){
               <b className="reviews__text-amount">50 characters</b>.
             </p>
             <button
-              onSubmit={handleSubmitClick}
               className="reviews__submit form__submit button"
               type="submit"
               disabled={formData.comment.length < 49}
