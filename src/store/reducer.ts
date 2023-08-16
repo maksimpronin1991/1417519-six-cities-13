@@ -6,9 +6,13 @@ import {
   loadNearPlaces,
   loadOffer,
   loadOffers,
+  loadReviews,
   requireAuthorization,
   setAuthData,
-  setOffersDataLoadingStatus
+  setNearOffersDataLoadingStatus,
+  setOfferDataLoadingStatus,
+  setOffersDataLoadingStatus,
+  setReviewsDataLoadingStatus
 } from './action';
 
 import { AuthorizationStatus } from '../consts';
@@ -24,19 +28,25 @@ type InitialState = {
   favorites: [];
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
+  isOfferDataLoading:boolean;
+  isNearOffersDataLoading:boolean;
+  isReviewsDataLoading:boolean;
   userData: UserData | null;
 }
 
 const initialState: InitialState = {
-  currentCity:  'Paris',
+  currentCity: 'Paris',
   offers: [],
-  offer:null,
+  offer: null,
   nearPlaces: [],
   rewiews: [],
   favorites: [],
   userData: null,
+  isOfferDataLoading: false,
+  isNearOffersDataLoading: false,
+  isReviewsDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  isOffersDataLoading:false,
+  isOffersDataLoading: false,
 };
 
 
@@ -57,8 +67,20 @@ const reducer = createReducer(initialState, (builder)=>{
     .addCase(requireAuthorization,(state,action) => {
       state.authorizationStatus = action.payload;
     })
+    .addCase(loadReviews,(state,action) => {
+      state.rewiews = action.payload;
+    })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setOfferDataLoadingStatus, (state, action) => {
+      state.isOfferDataLoading = action.payload;
+    })
+    .addCase(setNearOffersDataLoadingStatus, (state, action) => {
+      state.isNearOffersDataLoading = action.payload;
+    })
+    .addCase(setReviewsDataLoadingStatus, (state, action) => {
+      state.isReviewsDataLoading = action.payload;
     })
     .addCase(dropOffer, (state) => {
       state.offer = null;
