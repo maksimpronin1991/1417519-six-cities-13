@@ -3,10 +3,9 @@ import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import {layerGroup, Marker} from 'leaflet';
 import useMap from '../hooks/use-map';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
+import { CITYES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { City, Offer, Offers } from '../../types/offer';
 import cn from 'classnames';
-import { CITYES } from '../../mocks/city';
 import { useAppSelector } from '../hooks/use-select';
 
 
