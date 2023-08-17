@@ -3,6 +3,7 @@ import { Cityes } from './types/offer';
 export enum AppRoute {
   Main = '/',
   Login = '/login',
+  Logout = '/logout',
   Favorites = '/favorites',
   Offer = '/offer'
 }

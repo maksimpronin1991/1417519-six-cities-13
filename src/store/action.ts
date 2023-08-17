@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import { FullOffer, Offer, Offers } from '../types/offer';
+import { FullOffer, Offers } from '../types/offer';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import { Reviews } from '../types/reviews';
 import { UserData } from '../types/user-data';
@@ -17,7 +17,7 @@ export const loadReviews = createAction<Reviews>('offer/loadReviews');
 
 export const dropOffer = createAction('OFFER/drop');
 
-export const loadFavorites = createAction<Offer>('main/loadFavorites');
+export const loadFavorites = createAction<Offers>('main/loadFavorites');
 
 export const loadNearPlaces = createAction<Offers>('main/loadNearPlaces');
 
@@ -36,3 +36,5 @@ export const redirectToRoute = createAction<AppRoute>('main/redirectToRoute');
 export const setAuthData = createAction('USER/setUserInfo', (userInfo: UserData | null) => ({payload: userInfo}));
 
 export const setNewReviewsDataLoadingStatus = createAction<boolean>('data/setNewReviewsDataLoadingStatus');
+
+export const setFavoritesDataLoadingStatus = createAction<boolean>('data/setFavoritesDataLoadingStatus');

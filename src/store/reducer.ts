@@ -3,12 +3,14 @@ import { FullOffer, Offers } from '../types/offer';
 import {
   changeCity,
   dropOffer,
+  loadFavorites,
   loadNearPlaces,
   loadOffer,
   loadOffers,
   loadReviews,
   requireAuthorization,
   setAuthData,
+  setFavoritesDataLoadingStatus,
   setNearOffersDataLoadingStatus,
   setNewReviewsDataLoadingStatus,
   setOfferDataLoadingStatus,
@@ -26,7 +28,7 @@ type InitialState = {
   offer:FullOffer | null;
   nearPlaces:Offers | undefined;
   rewiews: Reviews;
-  favorites: [];
+  favorites: Offers;
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
   isOfferDataLoading:boolean;
@@ -34,6 +36,7 @@ type InitialState = {
   isReviewsDataLoading:boolean;
   userData: UserData | null;
   isNewReviewDataLoading: boolean;
+  isFavoritesDataLoading: boolean;
 }
 
 const initialState: InitialState = {
@@ -50,6 +53,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
   isNewReviewDataLoading: false,
+  isFavoritesDataLoading:false,
 };
 
 
@@ -57,6 +61,9 @@ const reducer = createReducer(initialState, (builder)=>{
   builder
     .addCase(changeCity,(state,action) => {
       state.currentCity = action.payload;
+    })
+    .addCase(loadFavorites,(state,action) => {
+      state.favorites = action.payload;
     })
     .addCase(loadOffers,(state,action) => {
       state.offers = action.payload;
@@ -78,6 +85,9 @@ const reducer = createReducer(initialState, (builder)=>{
     })
     .addCase(setOfferDataLoadingStatus, (state, action) => {
       state.isOfferDataLoading = action.payload;
+    })
+    .addCase(setFavoritesDataLoadingStatus, (state, action) => {
+      state.isFavoritesDataLoading = action.payload;
     })
     .addCase(setNearOffersDataLoadingStatus, (state, action) => {
       state.isNearOffersDataLoading = action.payload;

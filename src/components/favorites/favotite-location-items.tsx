@@ -6,7 +6,7 @@ type FavoriteLocItemsScreenProps = {
   rentingOffers: Offers;
 }
 
-function FavoriteLocItems ({rentingOffers}: FavoriteLocItemsScreenProps):JSX.Element {
+function  FavoriteLocItems ({rentingOffers}: FavoriteLocItemsScreenProps):JSX.Element {
   const favoriteOffers = rentingOffers.filter((offer) => offer.isFavorite === true);
 
   return (

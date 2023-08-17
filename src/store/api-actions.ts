@@ -2,7 +2,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import { Offers, FullOffer, Offer } from '../types/offer.js';
+import { Offers, FullOffer } from '../types/offer.js';
 import {
   loadFavorites,
   loadNearPlaces,
@@ -12,6 +12,7 @@ import {
   redirectToRoute,
   requireAuthorization,
   setAuthData,
+  setFavoritesDataLoadingStatus,
   setNearOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
@@ -20,7 +21,7 @@ import { saveToken,dropToken } from '../services/token.js';
 import { AppRoute,APIRoute,AuthorizationStatus, NameSpace } from '../consts';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import { FormData, Review, Reviews } from '../types/reviews.js';
+import { BookmarkData, FormData, Review, Reviews } from '../types/reviews.js';
 
 export const fetchOffersAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
@@ -101,14 +102,27 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
 }>(
   'FAVORITES/fetch',
   async (_arg, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get<Offer>(APIRoute.Favorites);
-      dispatch(loadFavorites(data));
-    } catch {
-      throw new Error();
-    }
+    dispatch(setFavoritesDataLoadingStatus(true));
+    const { data } = await api.get<Offers>(APIRoute.Favorites);
+    dispatch(setFavoritesDataLoadingStatus(false));
+    dispatch(loadFavorites(data));
   },
 );
+
+export const changeFavStatus = createAsyncThunk<void, BookmarkData,{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+ }
+ >(
+   `${NameSpace.Offers}/changeFavStatus`,
+   async ({id , status}, {dispatch, extra: api }) => {
+     const url = `${APIRoute.Favorites}/${id}/${status}`;
+     await api.post(url);
+     dispatch(fetchOffersAction());
+   },
+ );
+
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

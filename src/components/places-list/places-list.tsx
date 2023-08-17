@@ -5,6 +5,9 @@ import {MouseEvent} from 'react';
 import cn from 'classnames';
 import { classesFor } from '../../types/classes-for';
 import { sorting } from '../../utils/utils';
+import { changeFavStatus, fetchOffersAction } from '../../store/api-actions';
+import { useDispatch } from 'react-redux';
+import { BookmarkData } from '../../types/reviews';
 
 type PlacesListScreenProps = {
   activeSorting: string;
@@ -16,6 +19,8 @@ type PlacesListScreenProps = {
 
 function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHover,classesForPlacesList}: PlacesListScreenProps,):JSX.Element {
   const {placesListType,placesCardType,imageWrapper} = classesForPlacesList;
+  const dispatch = useDispatch();
+
   const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemHover(event.currentTarget.id);
@@ -24,7 +29,19 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
   const handleListItemUnHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemUnHover(event.currentTarget.id);
+  };
 
+  let chcker = 0;
+
+  const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
+    event.preventDefault();
+    const id = event.target.closest('article').id as string;
+    if(rentingOffers.find((offer)=>offer.id === id)?.isFavorite){
+      chcker = 0;
+    }else{
+      chcker = 1;
+    }
+    dispatch(changeFavStatus({id , status: chcker}));
   };
 
   return (
@@ -37,7 +54,7 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
           onMouseEnter={handleListItemHover}
           onMouseLeave={handleListItemUnHover}
         >
-          {offer.isFavorite ? <PremiumMark/> : ''}
+          {offer.isPremium ? <PremiumMark/> : ''}
           <div className={cn(imageWrapper,'place-card__image-wrapper')}>
             <a
 
@@ -59,6 +76,7 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
                 <span className="place-card__price-text">/&nbsp;night</span>
               </div>
               <button
+                onClick={handleBookmarkClick}
                 className= {offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button ' : 'place-card__bookmark-button button'}
                 type="button"
               >

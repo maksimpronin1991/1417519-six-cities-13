@@ -1,7 +1,7 @@
 import {useRef, FormEvent, useState, ChangeEvent} from 'react';
 import {Navigate} from 'react-router-dom';
 import { useAppDispatch } from '../../components/hooks/use-dispatch';
-import {loginAction} from '../../store/api-actions';
+import { loginAction} from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../consts';
 import { toast } from 'react-toastify';
 import Logo from '../../components/logo/logo';
@@ -47,7 +47,6 @@ function LoginPage(): JSX.Element {
   if (hasAuthorization) {
     return <Navigate to={AppRoute.Main} />;
   }
-
 
   return (
     <div className="page page--gray page--login">
