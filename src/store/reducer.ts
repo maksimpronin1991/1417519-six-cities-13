@@ -10,6 +10,7 @@ import {
   requireAuthorization,
   setAuthData,
   setNearOffersDataLoadingStatus,
+  setNewReviewsDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
   setReviewsDataLoadingStatus
@@ -32,6 +33,7 @@ type InitialState = {
   isNearOffersDataLoading:boolean;
   isReviewsDataLoading:boolean;
   userData: UserData | null;
+  isNewReviewDataLoading: boolean;
 }
 
 const initialState: InitialState = {
@@ -47,6 +49,7 @@ const initialState: InitialState = {
   isReviewsDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
+  isNewReviewDataLoading: false,
 };
 
 
@@ -88,6 +91,9 @@ const reducer = createReducer(initialState, (builder)=>{
     })
     .addCase(setAuthData, (state, action) => {
       state.userData = action.payload;
+    })
+    .addCase(setNewReviewsDataLoadingStatus, (state, action) => {
+      state.isNewReviewDataLoading = action.payload;
     });
 });
 

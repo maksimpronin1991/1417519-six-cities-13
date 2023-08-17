@@ -20,8 +20,7 @@ import { saveToken,dropToken } from '../services/token.js';
 import { AppRoute,APIRoute,AuthorizationStatus, NameSpace } from '../consts';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import { Review, Reviews } from '../types/reviews.js';
-
+import { FormData, Review, Reviews } from '../types/reviews.js';
 
 export const fetchOffersAction = createAsyncThunk<void,undefined,{
   dispatch: AppDispatch;
@@ -70,7 +69,7 @@ export const fetchReviewsAction = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  `${NameSpace.NearPlaces}/fetchReviews`,
+  `${NameSpace.Reviews}/fetchReviews`,
   async (offerId, {dispatch, extra: api}) => {
     dispatch(setReviewsDataLoadingStatus(true));
     const {data} = await api.get<Reviews>(`comments/${offerId}`);
@@ -87,8 +86,9 @@ export const postReview = createAsyncThunk<Review,Comment,{
  }
  >(
    `${NameSpace.Reviews}/postReview`,
-   async ({offerId,comment, rating}, { extra: api }) => {
-     const { data } = await api.post<Review>(`${APIRoute.Reviews}/${offerId}`, (comment, rating));
+   async (formdata, { extra: api }) => {
+     const a = JSON.parse(formdata.data) as FormData;
+     const { data } = await api.post<Review>(`comments/${a.offerId}`, ({comment: a.comment, rating: +a.rating}));
      return data;
    },
  );

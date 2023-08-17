@@ -1,9 +1,12 @@
 import moment from 'moment';
-import { useAppSelector } from '../hooks/use-select';
+import { Reviews } from '../../types/reviews';
 
+type ReviewsScreenProps = {
+  reviews: Reviews;
+}
 
-function ReviewsList ():JSX.Element{
-  const reviews = useAppSelector((state) => state.rewiews);
+function ReviewsList ({reviews}:ReviewsScreenProps):JSX.Element{
+
   return (
     <ul className="reviews__list">
       {reviews.map((review) => (

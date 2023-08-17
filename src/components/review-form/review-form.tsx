@@ -1,10 +1,11 @@
 import * as dayjs from 'dayjs';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/use-dispatch';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../hooks/use-select';
 import { AuthorizationStatus } from '../../consts';
-import { postReview } from '../../store/api-actions';
+import { fetchReviewsAction, postReview } from '../../store/api-actions';
+import { setNewReviewsDataLoadingStatus } from '../../store/action';
 
 type TOfferReview = {
   offerId: string;
@@ -15,6 +16,7 @@ function ReviewForm (){
   const {offerId} = useParams() as TOfferReview;
   const userData = useAppSelector((state)=> state.userData);
   const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+  const reload = useAppSelector((state)=> state.isNewReviewDataLoading);
 
   const [formData, setFormData] = useState({
     id: '',
@@ -39,18 +41,28 @@ function ReviewForm (){
     setFormData({...formData,[name]:value});
   };
 
-
   const handleSubmitClick = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if(offerId){
-      dispatch(postReview({offerId, comment:formData.comment, rating:formData.rating}));
-      setFormData({...formData, rating: 0, comment: ''});
+      const a = evt.target as Comment;
+      a.data = JSON.stringify({...formData , offerId});
+      dispatch(postReview(evt.target as Comment));
+      dispatch(setNewReviewsDataLoadingStatus(true));
     }
     setFormData({...formData,
       id: crypto.randomUUID(),
       date: dayjs().format('YYYY-MM-DDTHH:mm:ssZ[Z]'),
     });
   };
+
+  useEffect(()=>{
+    if(reload){
+      dispatch(fetchReviewsAction(offerId));
+      dispatch(setNewReviewsDataLoadingStatus(false));
+      setFormData({...formData, rating:0, comment:''});
+    }
+  },[dispatch,offerId,reload,formData]);
+
 
   return (
     <>
