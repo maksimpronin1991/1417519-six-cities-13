@@ -34,7 +34,6 @@ function App (): JSX.Element{
               {<MainPage/>}
           />
           <Route
-
             path={AppRoute.Login}
             element={<LoginPage />}
           />

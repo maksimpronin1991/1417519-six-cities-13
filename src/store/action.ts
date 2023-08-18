@@ -38,3 +38,4 @@ export const setAuthData = createAction('USER/setUserInfo', (userInfo: UserData 
 export const setNewReviewsDataLoadingStatus = createAction<boolean>('data/setNewReviewsDataLoadingStatus');
 
 export const setFavoritesDataLoadingStatus = createAction<boolean>('data/setFavoritesDataLoadingStatus');
+

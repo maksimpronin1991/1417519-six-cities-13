@@ -13,7 +13,7 @@ function Cities ():JSX.Element {
 
   const classesForPlacesList = {
     mapType:'cities__map',
-    placesListType: 'cities__places-list  tabs__content',
+    placesListType: 'cities__places-list tabs__content',
     placesCardType: 'cities__card',
     imageWrapper:'cities__image-wrapper',
   };

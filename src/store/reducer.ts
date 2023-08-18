@@ -15,7 +15,7 @@ import {
   setNewReviewsDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
-  setReviewsDataLoadingStatus
+  setReviewsDataLoadingStatus,
 } from './action';
 
 import { AuthorizationStatus } from '../consts';

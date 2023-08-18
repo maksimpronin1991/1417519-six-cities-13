@@ -32,6 +32,7 @@ function Map({points,selectedPoint,mapType}:MapScreenProps) {
   const city = CITYES.find((cityes) => cityes.name === actualCity) as City;
   const mapRef = useRef(null);
   const map = useMap({mapRef, city});
+
   const [currentCity, setCurrentCity] = useState(city);
 
   useEffect(()=>{

@@ -16,7 +16,8 @@ import {
   setNearOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
-  setReviewsDataLoadingStatus} from './action';
+  setReviewsDataLoadingStatus,
+} from './action';
 import { saveToken,dropToken } from '../services/token.js';
 import { AppRoute,APIRoute,AuthorizationStatus, NameSpace } from '../consts';
 import {AuthData} from '../types/auth-data';
@@ -137,7 +138,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-      dispatch(redirectToRoute(AppRoute.Login));
     }
   },
 );
