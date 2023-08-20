@@ -12,11 +12,15 @@ import { useEffect, useState } from 'react';
 import NearPlaces from '../../components/near-palces/near-places';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { useAppSelector } from '../../components/hooks/use-select';
-import { fetchNeigbourhoodOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { changeFavStatus, fetchNeigbourhoodOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../components/hooks/use-dispatch';
-import { dropOffer } from '../../store/action';
+import { dropOffer, redirectToRoute } from '../../store/action';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import Error from '../404-page/404-page';
+import {MouseEvent} from 'react';
+import { AppRoute } from '../../consts';
+import { BookmarkData } from '../../types/reviews';
+
 
 function OfferPage(): JSX.Element {
   const {offerId} = useParams();
@@ -24,10 +28,16 @@ function OfferPage(): JSX.Element {
 
   const rentingOffers = useAppSelector((state)=> state.offers);
   const actualOffer: FullOffer = useAppSelector((state)=> state.offer) as FullOffer;
-  const neighbourhoodOffers = useAppSelector((state)=> state.nearPlaces) as Offers;
+  const nearPlacesOffers = useAppSelector((state)=> state.nearPlaces) as Offers;
+  const currentOffer = rentingOffers.find((offer)=>offer.id === offerId) as Offer;
+  const neighbourhoodOffers = nearPlacesOffers?.slice(0,3);
+  const neighbourhoodOffersForMap = nearPlacesOffers?.slice(0,3).concat(currentOffer);
+
+
   const offerFetchingStatus = useAppSelector((state) => state.isOfferDataLoading);
   const nearOffersFetchingStatus = useAppSelector((state) => state.isNearOffersDataLoading);
   const reviewsOfferFetchingStatus = useAppSelector((state) => state.isReviewsDataLoading);
+  const loginStatus = useAppSelector((state)=> state.authorizationStatus);
 
   const mapType = 'offer__map';
   const classesForPlacesList = {
@@ -37,7 +47,7 @@ function OfferPage(): JSX.Element {
     imageWrapper:'cities__image-wrapper',
   };
 
-  const [selectedPoint, setSelectedPoint] = useState<Offer | undefined>(
+  const [, setSelectedPoint] = useState<Offer | undefined>(
     undefined
   );
 
@@ -70,6 +80,22 @@ function OfferPage(): JSX.Element {
     return <Error/>;
   }
 
+  let chcker = 0;
+
+  const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
+    event.preventDefault();
+    if(loginStatus === 'NO_AUTH'){
+      dispatch(redirectToRoute(AppRoute.Login));
+    }else{
+      if(rentingOffers.find((offer)=>offer.id === offerId)?.isFavorite){
+        chcker = 0;
+      }else{
+        chcker = 1;
+      }
+      dispatch(changeFavStatus({id:offerId , status: chcker} as BookmarkData));
+    }
+  };
+
 
   return (
     <>
@@ -97,6 +123,7 @@ function OfferPage(): JSX.Element {
                       {actualOffer.title}
                     </h1>
                     <button
+                      onClick={handleBookmarkClick}
                       className={actualOffer.isFavorite ? 'offer__bookmark-button offer__bookmark-button--active button ' : 'offer__bookmark-button button'}
                       type="button"
                     >
@@ -132,8 +159,8 @@ function OfferPage(): JSX.Element {
                 </div>
               </div>
               <Map
-                points={neighbourhoodOffers}
-                selectedPoint={selectedPoint}
+                points={neighbourhoodOffersForMap}
+                selectedPoint={currentOffer}
                 mapType = {mapType}
               />
             </section>

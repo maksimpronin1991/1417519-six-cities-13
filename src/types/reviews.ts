@@ -20,7 +20,7 @@ type FormData = {
 
 type BookmarkData = {
   id: string;
-  status: string;
+  status: number;
 }
 
 type Reviews = Review[];

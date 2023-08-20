@@ -68,7 +68,12 @@ function ReviewForm (){
     <>
       {authorizationStatus !== AuthorizationStatus.Auth && (<div></div>)}
       {authorizationStatus === AuthorizationStatus.Auth && (
-        <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmitClick}>
+        <form
+          className="reviews__form form"
+          action="#"
+          method="post"
+          onSubmit={handleSubmitClick}
+        >
           <label className="reviews__label form__label" htmlFor="review">
     Your review
           </label>

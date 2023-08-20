@@ -1,11 +1,37 @@
+import { AppRoute } from '../../consts';
+import { redirectToRoute } from '../../store/action';
+import { changeFavStatus } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
+import { BookmarkData } from '../../types/reviews';
+import { useAppDispatch } from '../hooks/use-dispatch';
+import { useAppSelector } from '../hooks/use-select';
 import { PremiumMark } from '../premium-mark/premium-mark';
+import {MouseEvent} from 'react';
+
 
 type FavoritePlaceCardScreenProps = {
   rentingOffer: Offer;
 }
 
 function FavoritePlaceCard ({rentingOffer}: FavoritePlaceCardScreenProps):JSX.Element {
+  const loginStatus = useAppSelector((state)=> state.authorizationStatus);
+  const dispatch = useAppDispatch();
+  let chcker = 0;
+
+  const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
+    event.preventDefault();
+    if(loginStatus === 'NO_AUTH'){
+      dispatch(redirectToRoute(AppRoute.Login));
+    }else{
+      if(rentingOffer?.isFavorite){
+        chcker = 0;
+      }else{
+        chcker = 1;
+      }
+      dispatch(changeFavStatus({id:rentingOffer.id , status: chcker} as BookmarkData));
+    }
+  };
+
   return (
     <article className="favorites__card place-card">
       {rentingOffer.isFavorite ? <PremiumMark/> : ''}
@@ -29,7 +55,8 @@ function FavoritePlaceCard ({rentingOffer}: FavoritePlaceCardScreenProps):JSX.El
             </span>
           </div>
           <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
+            onClick={handleBookmarkClick}
+            className= {rentingOffer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
           >
             <svg

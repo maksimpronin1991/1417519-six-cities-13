@@ -11,7 +11,6 @@ type PlacesListPageScreenProps = {
 
 function NearPlaces({neighbourhoodOffers,handleListItemHover,handleListItemUnHover,classesForPlacesList}: PlacesListPageScreenProps): JSX.Element {
 
-
   return (
     <section className="near-places places">
       <h2 className="near-places__title">

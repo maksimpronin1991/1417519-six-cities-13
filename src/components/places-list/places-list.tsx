@@ -5,9 +5,11 @@ import {MouseEvent} from 'react';
 import cn from 'classnames';
 import { classesFor } from '../../types/classes-for';
 import { sorting } from '../../utils/utils';
-import { changeFavStatus, fetchOffersAction } from '../../store/api-actions';
+import { changeFavStatus } from '../../store/api-actions';
 import { useDispatch } from 'react-redux';
-import { BookmarkData } from '../../types/reviews';
+import { useAppSelector } from '../hooks/use-select';
+import { redirectToRoute } from '../../store/action';
+import { AppRoute } from '../../consts';
 
 type PlacesListScreenProps = {
   activeSorting: string;
@@ -20,6 +22,7 @@ type PlacesListScreenProps = {
 function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHover,classesForPlacesList}: PlacesListScreenProps,):JSX.Element {
   const {placesListType,placesCardType,imageWrapper} = classesForPlacesList;
   const dispatch = useDispatch();
+  const loginStatus = useAppSelector((state)=> state.authorizationStatus);
 
   const handleListItemHover = (event:MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
@@ -35,13 +38,17 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
 
   const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
-    const id = event.target.closest('article').id as string;
-    if(rentingOffers.find((offer)=>offer.id === id)?.isFavorite){
-      chcker = 0;
+    if(loginStatus === 'NO_AUTH'){
+      dispatch(redirectToRoute(AppRoute.Login));
     }else{
-      chcker = 1;
+      const id = event.target.closest('article').id as string;
+      if(rentingOffers.find((offer)=>offer.id === id)?.isFavorite){
+        chcker = 0;
+      }else{
+        chcker = 1;
+      }
+      dispatch(changeFavStatus({id , status: chcker}));
     }
-    dispatch(changeFavStatus({id , status: chcker}));
   };
 
   return (

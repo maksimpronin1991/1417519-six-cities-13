@@ -1,18 +1,21 @@
 import { useAppSelector } from '../hooks/use-select';
 import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/review-list';
+import { sortTimeReviews } from '../../utils/utils';
+
 
 function Reviews ():JSX.Element {
 
   const reviews = useAppSelector((state) => state.rewiews);
+  const lastReviews = reviews && sortTimeReviews([...reviews]).slice(0, 10);
 
 
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
-  Reviews · <span className="reviews__amount">{reviews.length}</span>
+  Reviews · <span className="reviews__amount">{lastReviews.length}</span>
       </h2>
-      <ReviewsList reviews={reviews}/>
+      <ReviewsList reviews={lastReviews}/>
       <ReviewForm />
     </section>
   );

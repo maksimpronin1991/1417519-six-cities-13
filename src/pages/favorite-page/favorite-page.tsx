@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../components/hooks/use-dispatch';
 import { useEffect } from 'react';
 import { fetchFavoritesAction } from '../../store/api-actions';
 import { setFavoritesDataLoadingStatus } from '../../store/action';
+import FavoriteLocEmpty from '../../components/favorites-empty/favorites-empty';
 
 
 function FavorivePage ():JSX.Element{
@@ -35,18 +36,21 @@ function FavorivePage ():JSX.Element{
               </div>
             </div>
           </header>
-          <main className="page__main page__main--favorites">
-            <div className="page__favorites-container container">
-              <section className="favorites">
-                <h1 className="favorites__title">Saved listing</h1>
-                <ul className="favorites__list">
-                  <FavoriteLocItems
-                    rentingOffers = {rentingOffers}
-                  />
-                </ul>
-              </section>
-            </div>
-          </main>
+          {rentingOffers.length < 1 && (<FavoriteLocEmpty/>)}
+          {rentingOffers.length > 0 && (
+            <main className="page__main page__main--favorites">
+              <div className="page__favorites-container container">
+                <section className="favorites">
+                  <h1 className="favorites__title">Saved listing</h1>
+                  <ul className="favorites__list">
+                    <FavoriteLocItems
+                      rentingOffers = {rentingOffers}
+                    />
+                  </ul>
+                </section>
+              </div>
+            </main>)}
+
           <footer className="footer container">
             <a className="footer__logo-link" href="main.html">
               <img
