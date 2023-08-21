@@ -34,7 +34,6 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
     onListItemUnHover(event.currentTarget.id);
   };
 
-  let chcker = 0;
 
   const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
@@ -43,11 +42,10 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
     }else{
       const id = event.target.closest('article').id as string;
       if(rentingOffers.find((offer)=>offer.id === id)?.isFavorite){
-        chcker = 0;
+        dispatch(changeFavStatus({id , status: 0}));
       }else{
-        chcker = 1;
+        dispatch(changeFavStatus({id , status: 1}));
       }
-      dispatch(changeFavStatus({id , status: chcker}));
     }
   };
 

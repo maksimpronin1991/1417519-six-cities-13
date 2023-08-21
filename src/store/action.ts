@@ -39,3 +39,4 @@ export const setNewReviewsDataLoadingStatus = createAction<boolean>('data/setNew
 
 export const setFavoritesDataLoadingStatus = createAction<boolean>('data/setFavoritesDataLoadingStatus');
 
+export const setUserDataStatus = createAction<boolean>('data/setUserDataStatus');

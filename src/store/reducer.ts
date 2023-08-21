@@ -16,6 +16,7 @@ import {
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
   setReviewsDataLoadingStatus,
+  setUserDataStatus,
 } from './action';
 
 import { AuthorizationStatus } from '../consts';
@@ -37,6 +38,8 @@ type InitialState = {
   userData: UserData | null;
   isNewReviewDataLoading: boolean;
   isFavoritesDataLoading: boolean;
+  setUserDataStatus: boolean;
+  setNewFavoriteStatus: boolean;
 }
 
 const initialState: InitialState = {
@@ -54,6 +57,8 @@ const initialState: InitialState = {
   isOffersDataLoading: false,
   isNewReviewDataLoading: false,
   isFavoritesDataLoading:false,
+  setUserDataStatus:true,
+  setNewFavoriteStatus: false,
 };
 
 
@@ -82,6 +87,9 @@ const reducer = createReducer(initialState, (builder)=>{
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setUserDataStatus, (state, action) => {
+      state.setUserDataStatus = action.payload;
     })
     .addCase(setOfferDataLoadingStatus, (state, action) => {
       state.isOfferDataLoading = action.payload;

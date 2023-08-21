@@ -169,6 +169,7 @@ function ReviewForm (){
             value={formData.comment}
             placeholder="Tell how was your stay, what you like and what can be improved"
             minLength={50}
+            maxLength={300}
           />
           <div className="reviews__button-wrapper">
             <p className="reviews__help">
@@ -180,7 +181,7 @@ function ReviewForm (){
             <button
               className="reviews__submit form__submit button"
               type="submit"
-              disabled={formData.comment.length < 49}
+              disabled={formData.comment.length < 49 || formData.comment.length > 299}
             >
       Submit
             </button>

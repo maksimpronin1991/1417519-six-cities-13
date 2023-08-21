@@ -17,6 +17,7 @@ import {
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
   setReviewsDataLoadingStatus,
+  setUserDataStatus,
 } from './action';
 import { saveToken,dropToken } from '../services/token.js';
 import { AppRoute,APIRoute,AuthorizationStatus, NameSpace } from '../consts';
@@ -121,6 +122,7 @@ export const changeFavStatus = createAsyncThunk<void, BookmarkData,{
      const url = `${APIRoute.Favorites}/${id}/${status}`;
      await api.post(url);
      dispatch(fetchOffersAction());
+     dispatch(fetchFavoritesAction());
    },
  );
 
@@ -153,6 +155,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
+    dispatch(setUserDataStatus(true));
   },
 );
 
@@ -167,5 +170,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     dispatch(redirectToRoute(AppRoute.Login));
+    dispatch(setUserDataStatus(false));
   },
 );
