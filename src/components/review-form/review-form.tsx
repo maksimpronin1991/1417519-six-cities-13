@@ -181,7 +181,7 @@ function ReviewForm (){
             <button
               className="reviews__submit form__submit button"
               type="submit"
-              disabled={formData.comment.length < 49 || formData.comment.length > 299}
+              disabled={formData.comment.length < 49 || formData.comment.length > 299 || formData.rating === 0}
             >
       Submit
             </button>
