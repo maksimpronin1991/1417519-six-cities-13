@@ -11,7 +11,6 @@ function MainPage ():JSX.Element {
   const avalibleOffers = offers.find((offer)=> offer.city.name === currentCity);
   const checkAvalibleOffers = avalibleOffers === undefined;
 
-
   return(
     <div className="page page--gray page--main">
       <header className="header">
