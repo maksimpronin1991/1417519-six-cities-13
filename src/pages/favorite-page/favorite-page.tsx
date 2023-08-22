@@ -1,5 +1,4 @@
 import Logo from '../../components/logo/logo';
-import FavoriteLocItems from '../../components/favorites/favotite-location-items';
 import HeaderNav from '../../components/header-nav/header-nav';
 import { useAppSelector } from '../../components/hooks/use-select';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
@@ -8,6 +7,7 @@ import { useEffect } from 'react';
 import { fetchFavoritesAction } from '../../store/api-actions';
 import { setFavoritesDataLoadingStatus } from '../../store/action';
 import FavoriteLocEmpty from '../../components/favorites-empty/favorites-empty';
+import FavoriteLocList from '../../components/favorites-list/favorites-list';
 
 
 function FavorivePage ():JSX.Element{
@@ -22,6 +22,7 @@ function FavorivePage ():JSX.Element{
     dispatch(setFavoritesDataLoadingStatus(false));
 
   }, [dispatch,favoritesOfferFetchingStatus]);
+
 
   return (
     <>
@@ -42,11 +43,7 @@ function FavorivePage ():JSX.Element{
               <div className="page__favorites-container container">
                 <section className="favorites">
                   <h1 className="favorites__title">Saved listing</h1>
-                  <ul className="favorites__list">
-                    <FavoriteLocItems
-                      rentingOffers = {rentingOffers}
-                    />
-                  </ul>
+                  <FavoriteLocList/>
                 </section>
               </div>
             </main>)}

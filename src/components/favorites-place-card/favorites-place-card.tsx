@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { redirectToRoute } from '../../store/action';
 import { changeFavStatus } from '../../store/api-actions';
@@ -76,7 +77,12 @@ function FavoritePlaceCard ({rentingOffer}: FavoritePlaceCardScreenProps):JSX.El
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{rentingOffer.title}</a>
+          <Link
+            to ={`${AppRoute.Offer}/${rentingOffer.id}`}
+          >
+            {rentingOffer.title}
+
+          </Link>
         </h2>
         <p className="place-card__type">{rentingOffer.type}</p>
       </div>
