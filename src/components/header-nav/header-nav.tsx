@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { useAppDispatch } from '../hooks/use-dispatch';
 import { useAppSelector } from '../hooks/use-select';
-import { fetchFavoritesAction, logoutAction } from '../../store/api-actions';
-import { useEffect } from 'react';
+import { logoutAction } from '../../store/api-actions';
 
 function HeaderNav () {
 
@@ -14,9 +13,6 @@ function HeaderNav () {
   const userData = useAppSelector((state) => state.userData);
   const favorites = useAppSelector((state) => state.favorites);
 
-  useEffect(()=>{
-    dispatch(fetchFavoritesAction());
-  },[dispatch]);
 
   return (
     <nav className="header__nav">

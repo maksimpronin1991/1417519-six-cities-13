@@ -34,18 +34,16 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
     onListItemUnHover(event.currentTarget.id);
   };
 
-
   const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
     if(loginStatus === 'NO_AUTH'){
       dispatch(redirectToRoute(AppRoute.Login));
+    }
+    const id = event.target.closest('article').id as string;
+    if(rentingOffers.find((offer)=>offer.id === id)?.isFavorite){
+      dispatch(changeFavStatus({id , status: 0}));
     }else{
-      const id = event.target.closest('article').id as string;
-      if(rentingOffers.find((offer)=>offer.id === id)?.isFavorite){
-        dispatch(changeFavStatus({id , status: 0}));
-      }else{
-        dispatch(changeFavStatus({id , status: 1}));
-      }
+      dispatch(changeFavStatus({id , status: 1}));
     }
   };
 
@@ -59,7 +57,7 @@ function PlacesList ({activeSorting,rentingOffers,onListItemHover,onListItemUnHo
           onMouseEnter={handleListItemHover}
           onMouseLeave={handleListItemUnHover}
         >
-          {offer.isPremium ? <PremiumMark/> : ''}
+          {offer.isPremium && <PremiumMark/>}
           <div className={cn(imageWrapper,'place-card__image-wrapper')}>
             <a
 

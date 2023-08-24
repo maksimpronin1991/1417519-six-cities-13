@@ -1,4 +1,3 @@
-import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
 import { FullOffer, Offers } from '../../types/offer';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
@@ -10,7 +9,6 @@ import Map from '../../components/map/map';
 import { Offer } from '../../types/offer';
 import { useEffect, useState } from 'react';
 import NearPlaces from '../../components/near-palces/near-places';
-import HeaderNav from '../../components/header-nav/header-nav';
 import { useAppSelector } from '../../components/hooks/use-select';
 import { changeFavStatus, fetchNeigbourhoodOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../components/hooks/use-dispatch';
@@ -20,6 +18,7 @@ import Error from '../404-page/404-page';
 import {MouseEvent} from 'react';
 import { AppRoute } from '../../consts';
 import { BookmarkData } from '../../types/reviews';
+import Header from '../../components/header/header';
 
 
 function OfferPage(): JSX.Element {
@@ -80,19 +79,15 @@ function OfferPage(): JSX.Element {
     return <Error/>;
   }
 
-  let chcker = 0;
-
   const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
     if(loginStatus === 'NO_AUTH'){
       dispatch(redirectToRoute(AppRoute.Login));
+    }
+    if(rentingOffers.find((offer)=>offer.id === offerId)?.isFavorite){
+      dispatch(changeFavStatus({id:offerId , status: 0} as BookmarkData));
     }else{
-      if(rentingOffers.find((offer)=>offer.id === offerId)?.isFavorite){
-        chcker = 0;
-      }else{
-        chcker = 1;
-      }
-      dispatch(changeFavStatus({id:offerId , status: chcker} as BookmarkData));
+      dispatch(changeFavStatus({id:offerId , status: 1} as BookmarkData));
     }
   };
 
@@ -102,14 +97,7 @@ function OfferPage(): JSX.Element {
       {offerFetchingStatus || nearOffersFetchingStatus || reviewsOfferFetchingStatus && <LoadingScreen/>}
       {offerFetchingStatus === false && actualOffer && (
         <div className="page">
-          <header className="header">
-            <div className="container">
-              <div className="header__wrapper">
-                <Logo/>
-                <HeaderNav/>
-              </div>
-            </div>
-          </header>
+          <Header/>
           <main className="page__main page__main--offer">
             <section className="offer">
               <div className="offer__gallery-container container">

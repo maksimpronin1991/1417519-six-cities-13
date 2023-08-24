@@ -63,6 +63,7 @@ function ReviewForm (){
     }
   },[dispatch,offerId,reload,formData]);
 
+  const isFormValid = formData.comment.length < 49 || formData.comment.length > 299 || formData.rating === 0;
 
   return (
     <>
@@ -181,7 +182,7 @@ function ReviewForm (){
             <button
               className="reviews__submit form__submit button"
               type="submit"
-              disabled={formData.comment.length < 49 || formData.comment.length > 299 || formData.rating === 0}
+              disabled={isFormValid}
             >
       Submit
             </button>

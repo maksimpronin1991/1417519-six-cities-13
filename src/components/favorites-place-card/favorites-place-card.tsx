@@ -17,25 +17,24 @@ type FavoritePlaceCardScreenProps = {
 function FavoritePlaceCard ({rentingOffer}: FavoritePlaceCardScreenProps):JSX.Element {
   const loginStatus = useAppSelector((state)=> state.authorizationStatus);
   const dispatch = useAppDispatch();
-  let chcker = 0;
 
   const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
+
     if(loginStatus === 'NO_AUTH'){
       dispatch(redirectToRoute(AppRoute.Login));
+    }
+
+    if(rentingOffer?.isFavorite){
+      dispatch(changeFavStatus({id:rentingOffer.id , status: 0} as BookmarkData));
     }else{
-      if(rentingOffer?.isFavorite){
-        chcker = 0;
-      }else{
-        chcker = 1;
-      }
-      dispatch(changeFavStatus({id:rentingOffer.id , status: chcker} as BookmarkData));
+      dispatch(changeFavStatus({id:rentingOffer.id , status: 1} as BookmarkData));
     }
   };
 
   return (
     <article className="favorites__card place-card">
-      {rentingOffer.isFavorite ? <PremiumMark/> : ''}
+      {rentingOffer.isPremium && <PremiumMark/>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img

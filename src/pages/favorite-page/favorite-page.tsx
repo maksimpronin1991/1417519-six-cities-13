@@ -1,27 +1,13 @@
-import Logo from '../../components/logo/logo';
-import HeaderNav from '../../components/header-nav/header-nav';
 import { useAppSelector } from '../../components/hooks/use-select';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import { useAppDispatch } from '../../components/hooks/use-dispatch';
-import { useEffect } from 'react';
-import { fetchFavoritesAction } from '../../store/api-actions';
-import { setFavoritesDataLoadingStatus } from '../../store/action';
 import FavoriteLocEmpty from '../../components/favorites-empty/favorites-empty';
-import FavoriteLocList from '../../components/favorites-list/favorites-list';
+import Header from '../../components/header/header';
+import FavoritesMainPage from '../../components/favorites-main-page/favorites-main-page';
 
 
 function FavorivePage ():JSX.Element{
   const favoritesOfferFetchingStatus = useAppSelector((state) => state.isFavoritesDataLoading);
   const rentingOffers = useAppSelector((state)=> state.favorites);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!favoritesOfferFetchingStatus) {
-      dispatch(fetchFavoritesAction());
-    }
-    dispatch(setFavoritesDataLoadingStatus(false));
-
-  }, [dispatch,favoritesOfferFetchingStatus]);
 
 
   return (
@@ -29,24 +15,11 @@ function FavorivePage ():JSX.Element{
       {favoritesOfferFetchingStatus === true && <LoadingScreen/>}
       {favoritesOfferFetchingStatus === false && rentingOffers && (
         <div className="page">
-          <header className="header">
-            <div className="container">
-              <div className="header__wrapper">
-                <Logo/>
-                <HeaderNav/>
-              </div>
-            </div>
-          </header>
+          <Header/>
           {rentingOffers.length < 1 && (<FavoriteLocEmpty/>)}
           {rentingOffers.length > 0 && (
-            <main className="page__main page__main--favorites">
-              <div className="page__favorites-container container">
-                <section className="favorites">
-                  <h1 className="favorites__title">Saved listing</h1>
-                  <FavoriteLocList/>
-                </section>
-              </div>
-            </main>)}
+            <FavoritesMainPage/>
+          )}
 
           <footer className="footer container">
             <a className="footer__logo-link" href="main.html">
