@@ -8,15 +8,14 @@ function HeaderNav () {
 
   const dispatch = useAppDispatch();
 
-  const userDataStatus = useAppSelector((state) => state.setUserDataStatus);
+  const userDataStatus = useAppSelector((state) => state.authorizationStatus);
 
   const userData = useAppSelector((state) => state.userData);
   const favorites = useAppSelector((state) => state.favorites);
 
-
   return (
     <nav className="header__nav">
-      {userDataStatus === false && (
+      {userDataStatus === 'NO_AUTH' && (
         <li className="header__nav-item">
           <Link
             className="header__nav-link"
@@ -25,7 +24,7 @@ function HeaderNav () {
             <span className="header__signout">Login</span>
           </Link>
         </li>)}
-      {userDataStatus === true && (
+      {userDataStatus === 'AUTH' && (
         <ul className="header__nav-list">
           <li className="header__nav-item user">
 

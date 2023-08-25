@@ -23,9 +23,9 @@ export const loadNearPlaces = createAction<Offers>('main/loadNearPlaces');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const setOffersDataLoadingStatus = createAction<boolean>('data/setQuestionsDataLoadingStatus');
+export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 
-export const setOfferDataLoadingStatus = createAction<boolean>('data/setQuestionDataLoadingStatus');
+export const setOfferDataLoadingStatus = createAction<boolean>('data/setOfferDataLoadingStatus');
 
 export const setNearOffersDataLoadingStatus = createAction<boolean>('data/setNearOffersDataLoadingStatus');
 
@@ -39,4 +39,3 @@ export const setNewReviewsDataLoadingStatus = createAction<boolean>('data/setNew
 
 export const setFavoritesDataLoadingStatus = createAction<boolean>('data/setFavoritesDataLoadingStatus');
 
-export const setUserDataStatus = createAction<boolean>('data/setUserDataStatus');
