@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { redirectToRoute } from '../../store/action';
 import { changeFavStatus } from '../../store/api-actions';
-import { Offer } from '../../types/offer';
-import { BookmarkData } from '../../types/reviews';
+import { FavoritesStatusData, Offer } from '../../types/offer';
 import { useAppDispatch } from '../hooks/use-dispatch';
 import { useAppSelector } from '../hooks/use-select';
 import { PremiumMark } from '../premium-mark/premium-mark';
 import {MouseEvent} from 'react';
+import { getAuthorizationStatus } from '../../store/user-process/user-selectors';
 
 
 type FavoritePlaceCardScreenProps = {
@@ -15,20 +15,20 @@ type FavoritePlaceCardScreenProps = {
 }
 
 function FavoritePlaceCard ({rentingOffer}: FavoritePlaceCardScreenProps):JSX.Element {
-  const loginStatus = useAppSelector((state)=> state.authorizationStatus);
+  const loginStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
 
-    if(loginStatus === 'NO_AUTH'){
+    if(loginStatus !== 'AUTH'){
       dispatch(redirectToRoute(AppRoute.Login));
     }
 
     if(rentingOffer?.isFavorite){
-      dispatch(changeFavStatus({id:rentingOffer.id , status: 0} as BookmarkData));
+      dispatch(changeFavStatus({offerId:rentingOffer.id , isFavorite: true} as FavoritesStatusData));
     }else{
-      dispatch(changeFavStatus({id:rentingOffer.id , status: 1} as BookmarkData));
+      dispatch(changeFavStatus({offerId:rentingOffer.id , isFavorite: false} as FavoritesStatusData));
     }
   };
 

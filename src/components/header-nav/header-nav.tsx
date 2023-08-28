@@ -3,15 +3,22 @@ import { AppRoute } from '../../consts';
 import { useAppDispatch } from '../hooks/use-dispatch';
 import { useAppSelector } from '../hooks/use-select';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-selectors';
+import { getFavoriteOffers } from '../../store/offers-data/offers-selectors';
+import { useEffect } from 'react';
+import { fetchFavoritesAction } from '../../store/api-actions';
 
 function HeaderNav () {
 
   const dispatch = useAppDispatch();
+  const userDataStatus = useAppSelector(getAuthorizationStatus);
 
-  const userDataStatus = useAppSelector((state) => state.authorizationStatus);
+  const userData = useAppSelector(getUserData);
+  const favorites = useAppSelector(getFavoriteOffers);
 
-  const userData = useAppSelector((state) => state.userData);
-  const favorites = useAppSelector((state) => state.favorites);
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [dispatch]);
 
   return (
     <nav className="header__nav">

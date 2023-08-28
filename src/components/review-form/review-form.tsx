@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../hooks/use-select';
 import { AuthorizationStatus } from '../../consts';
 import { fetchReviewsAction, postReview } from '../../store/api-actions';
-import { setNewReviewsDataLoadingStatus } from '../../store/action';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-selectors';
+import { isReviewsStatusLoading } from '../../store/reviews/reviews-selectors';
 
 type TOfferReview = {
   offerId: string;
@@ -14,9 +15,9 @@ type TOfferReview = {
 function ReviewForm (){
   const dispatch = useAppDispatch();
   const {offerId} = useParams() as TOfferReview;
-  const userData = useAppSelector((state)=> state.userData);
-  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
-  const reload = useAppSelector((state)=> state.isNewReviewDataLoading);
+  const userData = useAppSelector(getUserData);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const reload = useAppSelector(isReviewsStatusLoading);
 
   const [formData, setFormData] = useState({
     id: '',
@@ -47,7 +48,6 @@ function ReviewForm (){
       const a = evt.target as Comment;
       a.data = JSON.stringify({...formData , offerId});
       dispatch(postReview(evt.target as Comment));
-      dispatch(setNewReviewsDataLoadingStatus(true));
     }
     setFormData({...formData,
       id: crypto.randomUUID(),
@@ -58,7 +58,6 @@ function ReviewForm (){
   useEffect(()=>{
     if(reload){
       dispatch(fetchReviewsAction(offerId));
-      dispatch(setNewReviewsDataLoadingStatus(false));
       setFormData({...formData, rating:0, comment:''});
     }
   },[dispatch,offerId,reload,formData]);

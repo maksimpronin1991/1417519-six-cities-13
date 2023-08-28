@@ -3,11 +3,12 @@ import LoadingScreen from '../../components/loading-screen/loading-screen';
 import FavoriteLocEmpty from '../../components/favorites-empty/favorites-empty';
 import Header from '../../components/header/header';
 import FavoritesMainPage from '../../components/favorites-main-page/favorites-main-page';
+import { getFavoriteOffers, isOfferLoading } from '../../store/offers-data/offers-selectors';
 
 
 function FavorivePage ():JSX.Element{
-  const favoritesOfferFetchingStatus = useAppSelector((state) => state.isFavoritesDataLoading);
-  const rentingOffers = useAppSelector((state)=> state.favorites);
+  const favoritesOfferFetchingStatus = useAppSelector(isOfferLoading);
+  const rentingOffers = useAppSelector(getFavoriteOffers);
 
 
   return (

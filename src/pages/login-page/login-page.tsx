@@ -41,7 +41,7 @@ function LoginPage(): JSX.Element {
     }
   };
 
-  const isAuthorization = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.Auth;
+  const isAuthorization = useAppSelector((state) => state.USER.authorizationStatus) === AuthorizationStatus.Auth;
 
   if (isAuthorization) {
     return <Navigate to={AppRoute.Main} />;

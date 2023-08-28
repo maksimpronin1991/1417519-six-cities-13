@@ -2,11 +2,12 @@ import { useAppSelector } from '../hooks/use-select';
 import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/review-list';
 import { sortTimeReviews } from '../../utils/utils';
+import { getReviews } from '../../store/reviews/reviews-selectors';
 
 
 function Reviews ():JSX.Element {
 
-  const reviews = useAppSelector((state) => state.rewiews);
+  const reviews = useAppSelector(getReviews);
   const lastReviews = reviews && sortTimeReviews([...reviews]).slice(0, 10);
 
 

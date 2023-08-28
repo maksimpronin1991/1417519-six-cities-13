@@ -3,12 +3,16 @@ import { Cities } from '../../components/cities/cities';
 import { useAppSelector } from '../../components/hooks/use-select';
 import { CitiesEmpty } from '../../components/cities-empty/cities-empty';
 import Header from '../../components/header/header';
+import { getCurrentCity, getOffers } from '../../store/offers-data/offers-selectors';
 
 function MainPage ():JSX.Element {
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offers = useAppSelector((state) => state.offers);
+
+  const currentCity = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getOffers);
   const avalibleOffers = offers.find((offer)=> offer.city.name === currentCity);
   const checkAvalibleOffers = avalibleOffers === undefined;
+
+
   return(
     <div className="page page--gray page--main">
       <Header/>
@@ -20,7 +24,6 @@ function MainPage ():JSX.Element {
         </section>
         {!checkAvalibleOffers && <Cities/> }
         {checkAvalibleOffers && <CitiesEmpty/> }
-
       </main>
     </div>
   );

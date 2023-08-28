@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { FullOffer, Offers } from '../../types/offer';
+import { FavoritesStatusData, FullOffer, Offers } from '../../types/offer';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import { OfferPremiumMark } from '../../components/offer-premium-mark/offer-premium-mark';
 import OfferInside from '../../components/offer-inside/offer-inside';
@@ -12,31 +12,33 @@ import NearPlaces from '../../components/near-palces/near-places';
 import { useAppSelector } from '../../components/hooks/use-select';
 import { changeFavStatus, fetchNeigbourhoodOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../components/hooks/use-dispatch';
-import { dropOffer, redirectToRoute } from '../../store/action';
+import { redirectToRoute } from '../../store/action';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import Error from '../404-page/404-page';
 import {MouseEvent} from 'react';
 import { AppRoute } from '../../consts';
-import { BookmarkData } from '../../types/reviews';
 import Header from '../../components/header/header';
+import { getNeigborhoodOffers, getOffer, getOffers, isNeigbourhoodOffersLoading, isOfferLoading } from '../../store/offers-data/offers-selectors';
+import { isReviewsStatusLoading } from '../../store/reviews/reviews-selectors';
+import { getAuthorizationStatus } from '../../store/user-process/user-selectors';
+import { dropOffer, updateFavoriteOffer } from '../../store/offers-data/offers-data';
 
 
 function OfferPage(): JSX.Element {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
 
-  const rentingOffers = useAppSelector((state)=> state.offers);
-  const actualOffer: FullOffer = useAppSelector((state)=> state.offer) as FullOffer;
-  const nearPlacesOffers = useAppSelector((state)=> state.nearPlaces) as Offers;
+  const rentingOffers = useAppSelector(getOffers);
+  const actualOffer:FullOffer = useAppSelector(getOffer) as FullOffer;
+  const nearPlacesOffers = useAppSelector(getNeigborhoodOffers) as Offers;
   const currentOffer = rentingOffers.find((offer)=>offer.id === offerId) as Offer;
   const neighbourhoodOffers = nearPlacesOffers?.slice(0,3);
   const neighbourhoodOffersForMap = nearPlacesOffers?.slice(0,3).concat(currentOffer);
 
-
-  const offerFetchingStatus = useAppSelector((state) => state.isOfferDataLoading);
-  const nearOffersFetchingStatus = useAppSelector((state) => state.isNearOffersDataLoading);
-  const reviewsOfferFetchingStatus = useAppSelector((state) => state.isReviewsDataLoading);
-  const loginStatus = useAppSelector((state)=> state.authorizationStatus);
+  const offerFetchingStatus = useAppSelector(isOfferLoading);
+  const nearOffersFetchingStatus = useAppSelector(isNeigbourhoodOffersLoading);
+  const reviewsOfferFetchingStatus = useAppSelector(isReviewsStatusLoading);
+  const loginStatus = useAppSelector(getAuthorizationStatus);
 
   const mapType = 'offer__map';
   const classesForPlacesList = {
@@ -81,13 +83,15 @@ function OfferPage(): JSX.Element {
 
   const handleBookmarkClick = (event:MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
-    if(loginStatus === 'NO_AUTH'){
+    if(loginStatus !== 'AUTH'){
       dispatch(redirectToRoute(AppRoute.Login));
     }
-    if(rentingOffers.find((offer)=>offer.id === offerId)?.isFavorite){
-      dispatch(changeFavStatus({id:offerId , status: 0} as BookmarkData));
+    if(actualOffer.isFavorite){
+      dispatch(changeFavStatus({offerId , isFavorite: false} as FavoritesStatusData));
+      dispatch(updateFavoriteOffer({offerId, isFavorite: false} as FavoritesStatusData));
     }else{
-      dispatch(changeFavStatus({id:offerId , status: 1} as BookmarkData));
+      dispatch(changeFavStatus({offerId , isFavorite: true} as FavoritesStatusData));
+      dispatch(updateFavoriteOffer({offerId, isFavorite: true} as FavoritesStatusData));
     }
   };
 
