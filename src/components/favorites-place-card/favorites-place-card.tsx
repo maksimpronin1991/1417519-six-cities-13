@@ -29,10 +29,6 @@ function FavoritePlaceCard ({rentingOffer}: FavoritePlaceCardScreenProps):JSX.El
     if(rentingOffer?.isFavorite){
       dispatch(changeFavStatus({offerId:rentingOffer.id , isFavorite: false} as FavoritesStatusData));
       dispatch(updateFavoriteOffer({offerId:rentingOffer.id , isFavorite: false}));
-    }else{
-      dispatch(changeFavStatus({offerId:rentingOffer.id , isFavorite: true} as FavoritesStatusData));
-      dispatch(updateFavoriteOffer({offerId:rentingOffer.id , isFavorite: true}));
-
     }
   };
 
