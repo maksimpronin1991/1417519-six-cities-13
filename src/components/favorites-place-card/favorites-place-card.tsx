@@ -8,6 +8,7 @@ import { useAppSelector } from '../hooks/use-select';
 import { PremiumMark } from '../premium-mark/premium-mark';
 import {MouseEvent} from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/user-selectors';
+import { updateFavoriteOffer } from '../../store/offers-data/offers-data';
 
 
 type FavoritePlaceCardScreenProps = {
@@ -26,9 +27,12 @@ function FavoritePlaceCard ({rentingOffer}: FavoritePlaceCardScreenProps):JSX.El
     }
 
     if(rentingOffer?.isFavorite){
-      dispatch(changeFavStatus({offerId:rentingOffer.id , isFavorite: true} as FavoritesStatusData));
-    }else{
       dispatch(changeFavStatus({offerId:rentingOffer.id , isFavorite: false} as FavoritesStatusData));
+      dispatch(updateFavoriteOffer({offerId:rentingOffer.id , isFavorite: false}));
+    }else{
+      dispatch(changeFavStatus({offerId:rentingOffer.id , isFavorite: true} as FavoritesStatusData));
+      dispatch(updateFavoriteOffer({offerId:rentingOffer.id , isFavorite: true}));
+
     }
   };
 
