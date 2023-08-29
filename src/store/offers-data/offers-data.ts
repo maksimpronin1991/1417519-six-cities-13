@@ -50,15 +50,26 @@ export const offersData = createSlice({
         (offer) => offer.id === action.payload.offerId
       );
 
-      if (currentOfferIndex !== -1) {
-        state.offers[currentOfferIndex].isFavorite = Boolean(
-          action.payload.isFavorite
+      if(state.nearPlaces){
+        const currentNearOfferIndex = state.nearPlaces.findIndex(
+          (offer) => offer.id === action.payload.offerId
         );
-      }
-      if(state.offer && state.offer.id === state.offers[currentOfferIndex].id){
-        state.offer.isFavorite = Boolean(
-          action.payload.isFavorite
-        );
+        if (currentNearOfferIndex !== -1) {
+          state.nearPlaces[currentNearOfferIndex].isFavorite = Boolean(
+            action.payload.isFavorite
+          );
+        }
+
+        if (currentOfferIndex !== -1) {
+          state.offers[currentOfferIndex].isFavorite = Boolean(
+            action.payload.isFavorite
+          );
+        }
+        if(state.offer && state.offer.id === state.offers[currentOfferIndex].id){
+          state.offer.isFavorite = Boolean(
+            action.payload.isFavorite
+          );
+        }
       }
     },
     dropOffer: (state) => {
