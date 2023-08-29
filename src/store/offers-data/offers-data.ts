@@ -55,6 +55,11 @@ export const offersData = createSlice({
           action.payload.isFavorite
         );
       }
+      if(state.offer && state.offer.id === state.offers[currentOfferIndex].id){
+        state.offer.isFavorite = Boolean(
+          action.payload.isFavorite
+        );
+      }
     },
     dropOffer: (state) => {
       state.offer = null;
