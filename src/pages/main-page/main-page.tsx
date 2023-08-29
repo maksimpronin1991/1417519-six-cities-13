@@ -16,12 +16,15 @@ function MainPage ():JSX.Element {
   return(
     <div className="page page--gray page--main">
       <Header/>
-      <main className="page__main page__main--index">
+      <main
+        className={checkAvalibleOffers ? 'page__main page__main--index' : 'page__main page__main--index page__main--index-empty'}
+      >
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs"></div>
-        <section className="locations container">
-          <LocationList/>
-        </section>
+        <div className="tabs">
+          <section className="locations container">
+            <LocationList/>
+          </section>
+        </div>
         {!checkAvalibleOffers && <Cities/> }
         {checkAvalibleOffers && <CitiesEmpty/> }
       </main>

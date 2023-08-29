@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import { createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import { Offers, FullOffer, FavoritesStatusData, Offer } from '../types/offer.js';
 import { redirectToRoute } from './action';
@@ -85,7 +85,7 @@ export const fetchFavoritesAction = createAsyncThunk<Offers, undefined, {
   },
 );
 
-export const changeFavStatus = createAsyncThunk<Offer, FavoritesStatusData,{
+export const changeFavStatus = createAsyncThunk<Offer,FavoritesStatusData,{
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

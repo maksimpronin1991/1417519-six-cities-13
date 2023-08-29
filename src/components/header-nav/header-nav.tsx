@@ -17,8 +17,10 @@ function HeaderNav () {
   const favorites = useAppSelector(getFavoriteOffers);
 
   useEffect(() => {
-    dispatch(fetchFavoritesAction());
-  }, [dispatch]);
+    if(userDataStatus === 'AUTH'){
+      dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch,userDataStatus]);
 
   return (
     <nav className="header__nav">

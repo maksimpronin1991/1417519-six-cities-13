@@ -59,7 +59,9 @@ function ReviewForm (){
     if(reload){
       dispatch(fetchReviewsAction(offerId));
       setFormData({...formData, rating:0, comment:''});
+
     }
+
   },[dispatch,offerId,reload,formData]);
 
   const isFormValid = formData.comment.length < 49 || formData.comment.length > 299 || formData.rating === 0;

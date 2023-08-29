@@ -29,7 +29,8 @@ function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const rentingOffers = useAppSelector(getOffers);
-  const actualOffer:FullOffer = useAppSelector(getOffer) as FullOffer;
+
+  const actualOffer = useAppSelector(getOffer) as FullOffer;
   const nearPlacesOffers = useAppSelector(getNeigborhoodOffers) as Offers;
   const currentOffer = rentingOffers.find((offer)=>offer.id === offerId) as Offer;
   const neighbourhoodOffers = nearPlacesOffers?.slice(0,3);
@@ -85,13 +86,14 @@ function OfferPage(): JSX.Element {
     event.preventDefault();
     if(loginStatus !== 'AUTH'){
       dispatch(redirectToRoute(AppRoute.Login));
-    }
-    if(actualOffer.isFavorite){
-      dispatch(changeFavStatus({offerId , isFavorite: false} as FavoritesStatusData));
-      dispatch(updateFavoriteOffer({offerId, isFavorite: false} as FavoritesStatusData));
     }else{
-      dispatch(changeFavStatus({offerId , isFavorite: true} as FavoritesStatusData));
-      dispatch(updateFavoriteOffer({offerId, isFavorite: true} as FavoritesStatusData));
+      if(actualOffer.isFavorite){
+        dispatch(changeFavStatus({offerId , isFavorite: false} as FavoritesStatusData));
+        dispatch(updateFavoriteOffer({offerId, isFavorite: false} as FavoritesStatusData));
+      }else{
+        dispatch(changeFavStatus({offerId , isFavorite: true} as FavoritesStatusData));
+        dispatch(updateFavoriteOffer({offerId, isFavorite: true} as FavoritesStatusData));
+      }
     }
   };
 

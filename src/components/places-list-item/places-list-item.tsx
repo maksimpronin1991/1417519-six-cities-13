@@ -1,6 +1,5 @@
 import { MouseEvent, memo } from 'react';
 import { classesFor } from '../../types/classes-for';
-import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../hooks/use-select';
 import { redirectToRoute } from '../../store/action';
 import { AppRoute } from '../../consts';
@@ -11,6 +10,7 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { getAuthorizationStatus } from '../../store/user-process/user-selectors';
 import { updateFavoriteOffer } from '../../store/offers-data/offers-data';
+import { useAppDispatch } from '../hooks/use-dispatch';
 
 
 type PlacesListScreenProps = {
@@ -22,7 +22,7 @@ type PlacesListScreenProps = {
 
 function PlacesListItem ({offer,onListItemHover,onListItemUnHover,classesForPlacesList}: PlacesListScreenProps,):JSX.Element{
   const {placesCardType,imageWrapper} = classesForPlacesList;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const loginStatus = useAppSelector(getAuthorizationStatus);
   const offerId = offer.id;
 
@@ -40,14 +40,15 @@ function PlacesListItem ({offer,onListItemHover,onListItemUnHover,classesForPlac
     event.preventDefault();
     if(loginStatus !== 'AUTH'){
       dispatch(redirectToRoute(AppRoute.Login));
-    }
-
-    if(offer.isFavorite){
-      dispatch(changeFavStatus({offerId , isFavorite: false}));
-      dispatch(updateFavoriteOffer({offerId , isFavorite: false}));
     }else{
-      dispatch(changeFavStatus({offerId , isFavorite: true}));
-      dispatch(updateFavoriteOffer({offerId , isFavorite: true}));
+
+      if(offer.isFavorite){
+        dispatch(changeFavStatus({offerId , isFavorite: false}));
+        dispatch(updateFavoriteOffer({offerId , isFavorite: false}));
+      }else{
+        dispatch(changeFavStatus({offerId , isFavorite: true}));
+        dispatch(updateFavoriteOffer({offerId , isFavorite: true}));
+      }
     }
   };
 

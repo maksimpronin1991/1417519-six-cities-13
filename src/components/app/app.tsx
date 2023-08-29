@@ -25,8 +25,10 @@ function App (): JSX.Element{
 
   useEffect(() => {
     dispatch(fetchOffersAction());
-    dispatch(checkAuthAction());
-  }, [dispatch]);
+    if(authorizationStatus === 'AUTH'){
+      dispatch(checkAuthAction());
+    }
+  }, [dispatch,authorizationStatus]);
 
   if (!isAuthChecked) {
     return (
