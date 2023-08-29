@@ -3,21 +3,21 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/use-dispatch';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../hooks/use-select';
-import { AuthorizationStatus } from '../../consts';
+import { AuthorizationStatus, RequestStatus } from '../../consts';
 import { fetchReviewsAction, postReview } from '../../store/api-actions';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-selectors';
-import { isReviewsStatusLoading } from '../../store/reviews/reviews-selectors';
+import { getReviewsStatusLoading } from '../../store/reviews/reviews-selectors';
 
 type TOfferReview = {
   offerId: string;
 }
 
-function ReviewForm (){
+function ReviewForm ():JSX.Element{
   const dispatch = useAppDispatch();
   const {offerId} = useParams() as TOfferReview;
   const userData = useAppSelector(getUserData);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const reload = useAppSelector(isReviewsStatusLoading);
+  const reload = useAppSelector(getReviewsStatusLoading);
 
   const [formData, setFormData] = useState({
     id: '',
@@ -55,14 +55,15 @@ function ReviewForm (){
     });
   };
 
-  useEffect(()=>{
-    if(reload){
+
+  useEffect(() => {
+    if (reload === RequestStatus.SUCCESS) {
       dispatch(fetchReviewsAction(offerId));
-      setFormData({...formData, rating:0, comment:''});
-
     }
-
-  },[dispatch,offerId,reload,formData]);
+    return ()=> {
+      setFormData({...formData, rating:0, comment:''});
+    };
+  }, [dispatch, offerId, reload]);
 
   const isFormValid = formData.comment.length < 49 || formData.comment.length > 299 || formData.rating === 0;
 
