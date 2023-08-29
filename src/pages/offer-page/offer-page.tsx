@@ -31,9 +31,8 @@ function OfferPage(): JSX.Element {
   const rentingOffers = useAppSelector(getOffers);
 
   const actualOffer = useAppSelector(getOffer) as FullOffer;
-  const nearPlacesOffers = useAppSelector(getNeigborhoodOffers) as Offers;
   const currentOffer = rentingOffers.find((offer)=>offer.id === offerId) as Offer;
-  const neighbourhoodOffers = nearPlacesOffers?.slice(0,3);
+  const nearPlacesOffers = useAppSelector(getNeigborhoodOffers) as Offers;
   const neighbourhoodOffersForMap = nearPlacesOffers?.slice(0,3).concat(currentOffer);
 
   const offerFetchingStatus = useAppSelector(isOfferLoading);
@@ -160,7 +159,6 @@ function OfferPage(): JSX.Element {
             </section>
             <div className="container">
               <NearPlaces
-                neighbourhoodOffers= {neighbourhoodOffers}
                 handleListItemHover={handleListItemHover}
                 handleListItemUnHover={handleListItemUnHover}
                 classesForPlacesList={classesForPlacesList}
