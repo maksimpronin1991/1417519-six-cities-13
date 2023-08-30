@@ -15,7 +15,7 @@ function ReviewFormRating ({handleRatingChange,reviewDataRating}:ReviewFormRatin
         id="5-stars"
         type="radio"
         checked={reviewDataRating === 5}
-        onChange={handleRatingChange}
+        onChange={(evt) => handleRatingChange(evt)}
       />
       <label
         htmlFor="5-stars"

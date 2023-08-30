@@ -39,8 +39,10 @@ function ReviewForm ():JSX.Element{
 
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = evt.target;
-    setFormData({...formData,[name]:value});
+    setFormData({
+      ...formData,
+      rating: Number(evt.target.value),
+    });
   };
 
   const handleSubmitClick = (evt: FormEvent<HTMLFormElement>) => {
